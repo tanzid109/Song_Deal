@@ -1,0 +1,99 @@
+"use client";
+
+import Link from "next/link";
+import Image from "next/image";
+import { usePathname } from "next/navigation";
+import { Button } from "@/components/ui/button";
+import { Menu } from "lucide-react";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+    NavigationMenu,
+    NavigationMenuList,
+    NavigationMenuItem,
+    NavigationMenuLink,
+} from "@/components/ui/navigation-menu";
+
+export default function Navbar() {
+    const pathname = usePathname();
+
+    const navLinks = [
+        { name: "Marketplace", href: "/marketplace" },
+        { name: "About", href: "/about" },
+        { name: "Dashboard", href: "/dashboard" },
+    ];
+
+    return (
+        <header className="w-full border-b bg-white">
+            <div className="lg:px-20 lg:py-2 mx-auto flex items-center justify-between py-1 px-2 shadow-md">
+                {/* Logo */}
+                <Link href="/" className="flex lg:flex-col justify-center items-center gap-1 lg:gap-0">
+                    <Image src="/assets/logo.png" alt="SongDeal Logo" width={60} height={40} />
+                    <div className="flex flex-col lg:justify-center lg:items-center">
+                        <h1 className="text-xl font-semibold text-[#5B3FFF]">SongDeal</h1>
+                        <p className="text-[8px] text-gray-500 tracking-normal">
+                            TURNING SONGS INTO ASSETS
+                        </p>
+                    </div>
+                </Link>
+
+                {/* Desktop Nav */}
+                <NavigationMenu className="hidden md:flex space-x-8">
+                    <NavigationMenuList>
+                        {navLinks.map((link) => (
+                            <NavigationMenuItem key={link.href}>
+                                <NavigationMenuLink asChild active={pathname === link.href}>
+                                    <Link href={link.href}>
+                                        {link.name}
+                                    </Link>
+                                </NavigationMenuLink>
+                            </NavigationMenuItem>
+                        ))}
+                    </NavigationMenuList>
+                </NavigationMenu>
+
+                {/* Desktop Buttons */}
+                <div className="hidden md:flex space-x-3">
+                    <Button variant="secondary">
+                        Sign in
+                    </Button>
+                    <Button variant="default">
+                        Get started
+                    </Button>
+                </div>
+
+                {/* Mobile Menu */}
+                <Sheet>
+                    <SheetTrigger asChild>
+                        <Button size="icon" className="md:hidden">
+                            <Menu className="h-6 w-6" />
+                        </Button>
+                    </SheetTrigger>
+                    <SheetContent side="right" className="w-auto p-5 bg-white">
+                        <nav className="flex flex-col space-y-3 mt-8">
+                            {navLinks.map((link) => (
+                                <Link
+                                    key={link.href}
+                                    href={link.href}
+                                    className={`font-medium ${pathname === link.href
+                                        ? "text-[#5B3FFF] font-bold"
+                                        : "text-gray-800"
+                                        }`}
+                                >
+                                    {link.name}
+                                </Link>
+                            ))}
+                            <div className="flex flex-col gap-1">
+                                <Button variant="secondary" size="sm">
+                                    Sign in
+                                </Button>
+                                <Button variant="default" size="sm">
+                                    Get started
+                                </Button>
+                            </div>
+                        </nav>
+                    </SheetContent>
+                </Sheet>
+            </div>
+        </header>
+    );
+}
