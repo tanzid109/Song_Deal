@@ -40,7 +40,7 @@ const visionPoints = [
 
 export default function VisionSection() {
     return (
-        <section className="w-full py-20 bg-[#F9F9FB]">
+        <section className="w-full py-10 bg-[#F9F9FB]">
             <div className="container px-4 md:px-6 mx-auto">
                 {/* Header Section */}
                 <motion.div
