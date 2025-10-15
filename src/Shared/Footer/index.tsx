@@ -32,13 +32,13 @@ export default function Footer() {
                             href="#"
                             className="bg-[#1B127D] p-2 rounded-full hover:bg-[#2A1FB3] transition"
                         >
-                            <Facebook className="h-5 w-5 text-[#5B3FFF]" />
+                            <Facebook className="h-5 w-5 text-white" />
                         </Link>
                         <Link
                             href="#"
                             className="bg-[#1B127D] p-2 rounded-full hover:bg-[#2A1FB3] transition"
                         >
-                            <Instagram className="h-5 w-5 text-[#FF4FC3]" />
+                            <Instagram className="h-5 w-5 text-white" />
                         </Link>
                     </div>
                 </div>
@@ -66,10 +66,10 @@ export default function Footer() {
 
                 {/* Newsletter Section */}
                 <div>
-                    <form className="flex flex-col sm:flex-row items-center sm:items-stretch gap-3">
+                    <form className="flex flex-col sm:flex-row items-center justify-center sm:items-stretch gap-3">
                         <Input
                             placeholder="Your email address"
-                            className=" w-full bg-[#04004E]  border border-[#443FA1] text-white placeholder-gray-400 focus-visible:ring-[#5B3FFF] p-5.5"
+                            className=" w-full bg-[#04004E]  border border-[#443FA1] text-white placeholder-gray-400 focus-visible:ring-[#5B3FFF] p-[24px]"
                         />
                         <Button className="bg-gradient-to-r from-[#6C4CFF] to-[#5B3FFF] text-white px-6 hover:opacity-90">
                             Join Now
