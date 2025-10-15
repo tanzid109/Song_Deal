@@ -44,26 +44,26 @@ const cardVariants: Variants = {
 
 export default function MusicCatalog({ songs }: MusicCatalogProps) {
     return (
-        <section className="w-full bg-gradient-to-br from-gray-50 to-purple-50/30 p-0 m-0">
+        <section className="w-full p-0 m-0">
             <div className=" px-4 md:px-6">
                 <motion.div
                     variants={containerVariants}
                     initial="hidden"
                     whileInView="visible"
                     viewport={{ once: true, margin: "-50px" }}
-                    className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
+                    className=" grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
                 >
                     {songs.map((song, index) => (
                         <motion.div
                             key={song.id}
                             variants={cardVariants}
                             whileHover="hover"
-                            className="h-full"
+                            className="h-full "
                         >
-                            <Card className="h-full border-2 border-gray-100 bg-white/80 backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group pt-0">
+                            <Card className="h-full border-2 bg-[#635BFF1A] backdrop-blur-sm shadow-lg hover:shadow-2xl transition-all duration-300 overflow-hidden group pt-0">
                                 <CardContent className="p-0">
                                     {/* Album Art */}
-                                    <div className="relative h-52 overflow-hidden bg-gradient-to-br from-gray-200 to-gray-300 group-hover:from-gray-300 group-hover:to-gray-400 transition-all duration-300">
+                                    <div className="relative h-52 overflow-hidden transition-all duration-300">
                                         {/* Image Layer */}
                                         {song.coverImage ? (
                                             <motion.img
@@ -115,7 +115,6 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                                         </div>
                                     </div>
 
-
                                     {/* Song Info */}
                                     <div className="p-6">
                                         <motion.h3
@@ -141,7 +140,7 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                                                 initial={{ opacity: 0 }}
                                                 whileInView={{ opacity: 1 }}
                                                 transition={{ delay: index * 0.1 + 0.7 }}
-                                                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-gray-100 text-gray-700 text-sm font-medium"
+                                                className="inline-flex items-center gap-1 px-3 py-1 rounded-full bg-[#635BFF33] text-gray-700 text-sm font-medium"
                                             >
                                                 <Music className="h-3 w-3" />
                                                 {song.genre}

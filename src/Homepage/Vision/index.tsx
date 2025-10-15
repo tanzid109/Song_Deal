@@ -40,8 +40,8 @@ const visionPoints = [
 
 export default function VisionSection() {
     return (
-        <section className="w-full py-10 bg-[#F9F9FB]">
-            <div className="container px-4 md:px-6 mx-auto">
+        <section className="w-11/12 mx-auto py-10 bg-[#F9F9FB]">
+            <div className=" px-4 md:px-6 mx-auto">
                 {/* Header Section */}
                 <motion.div
                     initial="hidden"
@@ -104,7 +104,7 @@ export default function VisionSection() {
                                         initial={{ opacity: 0 }}
                                         whileInView={{ opacity: 1 }}
                                         transition={{ delay: point.delay + 0.4, duration: 0.6 }}
-                                        className="text-gray-600 leading-relaxed"
+                                        className="text-gray-600 leading-relaxed tracking-wider"
                                     >
                                         {point.description}
                                     </motion.p>
