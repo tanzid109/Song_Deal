@@ -121,7 +121,7 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                                             initial={{ opacity: 0 }}
                                             whileInView={{ opacity: 1 }}
                                             transition={{ delay: index * 0.1 + 0.5 }}
-                                            className="text-xl font-bold text-gray-900 mb-2 line-clamp-1"
+                                            className="text-xl font-bold text-[#635BFF] mb-2 line-clamp-1"
                                         >
                                             {song.title}
                                         </motion.h3>

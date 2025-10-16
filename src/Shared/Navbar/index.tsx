@@ -17,13 +17,14 @@ export default function Navbar() {
     const pathname = usePathname();
 
     const navLinks = [
+        { name: "Home", href: "/" },
         { name: "Marketplace", href: "/marketplace" },
         { name: "About", href: "/about" },
         { name: "Dashboard", href: "/dashboard" },
     ];
 
     return (
-        <header className="w-full border-b bg-white">
+        <header className="md:sticky md:top-0 md:z-50 backdrop-blur-lg w-full border-b ">
             <div className="lg:px-20 lg:py-2 mx-auto flex items-center justify-between py-1 px-2 shadow-md">
                 {/* Logo */}
                 <Link href="/" className="flex lg:flex-col justify-center items-center gap-1 lg:gap-0">
@@ -37,19 +38,21 @@ export default function Navbar() {
                 </Link>
 
                 {/* Desktop Nav */}
-                <NavigationMenu className="hidden md:flex space-x-8">
-                    <NavigationMenuList>
-                        {navLinks.map((link) => (
-                            <NavigationMenuItem key={link.href}>
-                                <NavigationMenuLink asChild active={pathname === link.href}>
-                                    <Link href={link.href}>
-                                        {link.name}
-                                    </Link>
-                                </NavigationMenuLink>
-                            </NavigationMenuItem>
-                        ))}
-                    </NavigationMenuList>
-                </NavigationMenu>
+                <div className="">
+                    <NavigationMenu className="hidden  md:flex space-x-8">
+                        <NavigationMenuList>
+                            {navLinks.map((link) => (
+                                <NavigationMenuItem key={link.href}>
+                                    <NavigationMenuLink asChild active={pathname === link.href}>
+                                        <Link href={link.href}>
+                                            {link.name}
+                                        </Link>
+                                    </NavigationMenuLink>
+                                </NavigationMenuItem>
+                            ))}
+                        </NavigationMenuList>
+                    </NavigationMenu>
+                </div>
 
                 {/* Desktop Buttons */}
                 <div className="hidden md:flex space-x-3">
