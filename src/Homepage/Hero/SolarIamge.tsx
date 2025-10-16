@@ -31,12 +31,12 @@ export default function SolarSystemAnimation() {
             className="relative flex items-center justify-center w-full h-[400px]" // smaller height
         >
             {/* Central "Sun" */}
-            <div className="absolute w-32 h-32 rounded-full bg-[#e8e4ff] flex items-center justify-center shadow-lg">
+            <div className="absolute w-32 h-auto rounded-full bg-[#e8e4ff] flex items-center justify-center shadow-lg">
                 <Image
-                    src="/assets/center.png"
+                    src="/assets/image1.jpg"
                     alt="Central"
                     width={110}
-                    height={110}
+                    height={210}
                     className="rounded-xl shadow-md"
                 />
             </div>
@@ -45,7 +45,7 @@ export default function SolarSystemAnimation() {
             <div className="absolute w-[250px] h-[250px] rounded-full border border-dashed border-gray-300 orbit">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <Image
-                        src="/assets/img1.png"
+                        src="/assets/image1.jpg"
                         alt="orbit-1"
                         width={45}
                         height={45}
@@ -57,7 +57,7 @@ export default function SolarSystemAnimation() {
             <div className="absolute w-[350px] h-[350px] rounded-full border border-dashed border-gray-300 orbit">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <Image
-                        src="/assets/img2.png"
+                        src="/assets/image2.jpg"
                         alt="orbit-2"
                         width={50}
                         height={50}
@@ -69,7 +69,7 @@ export default function SolarSystemAnimation() {
             <div className="absolute w-[450px] h-[450px] rounded-full border border-dashed border-gray-300 orbit">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <Image
-                        src="/assets/img3.png"
+                        src="/assets/image3.jpg"
                         alt="orbit-3"
                         width={55}
                         height={55}
@@ -81,7 +81,7 @@ export default function SolarSystemAnimation() {
             <div className="absolute w-[550px] h-[550px] rounded-full border border-dashed border-gray-300 orbit">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <Image
-                        src="/assets/img4.png"
+                        src="/assets/image4.jpg"
                         alt="orbit-4"
                         width={60}
                         height={60}

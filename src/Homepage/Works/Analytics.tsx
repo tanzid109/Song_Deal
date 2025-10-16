@@ -15,7 +15,7 @@ const Analytics = () => {
                         initial={{ opacity: 0, scale: 0.9 }}
                         whileInView={{ opacity: 1, scale: 1 }}
                         transition={{ delay: 0.3, duration: 0.6 }}
-                        className="relative w-full max-w-[700px]"
+                        className="relative w-full"
                     >
                         <Image
                             src="/assets/chart.png"
