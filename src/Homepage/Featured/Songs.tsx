@@ -1,45 +1,13 @@
-import SongCard, { SongItem } from "@/Shared/Song_Card";
+import { songs } from '@/Database/Songs';
+import SongCard from '@/Shared/Song_Card';
+import React from 'react';
 
+const FeaturedSongs = () => {
+    return (
+        <div>
+            <SongCard songs={songs}/>
+        </div>
+    );
+};
 
-const songs: SongItem[] = [
-    {
-        id: 1,
-        title: "Midnight Drive",
-        artist: "Lyla & The Cosmic Wave",
-        price: "$25.00",
-        genre: "Indie Pop",
-        tag: "Trending",
-        coverImage: "/assets/song.jpg"
-    },
-    {
-        id: 2,
-        title: "Echoes of Neon",
-        artist: "DJ Velocity",
-        price: "$45.00",
-        genre: "EDM",
-        tag: "Club Hit",
-        coverImage: "/assets/song.jpg"
-    },
-    {
-        id: 3,
-        title: "Echoes of Neon",
-        artist: "DJ Velocity",
-        price: "$45.00",
-        genre: "EDM",
-        tag: "Club Hit",
-        coverImage: "/assets/song.jpg"
-    },
-    {
-        id: 4,
-        title: "Echoes of Neon",
-        artist: "DJ Velocity",
-        price: "$45.00",
-        genre: "EDM",
-        tag: "Club Hit",
-        coverImage: "/assets/song.jpg"
-    },
-];
-
-export default function FeaturedSongs() {
-    return <SongCard songs={songs} />;
-}
+export default FeaturedSongs;

@@ -3,7 +3,7 @@ import { Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Navbar from "@/Shared/Navbar";
 import Footer from "@/Shared/Footer";
-
+import { Toaster } from "@/components/ui/sonner";
 const plusJakarta = Plus_Jakarta_Sans({
   variable: "--font-plus-jakarta",
   subsets: ["latin"],
@@ -32,6 +32,7 @@ export default function RootLayout({
           </div>
           <Footer />
         </main>
+        <Toaster position="top-center"/>
       </body>
     </html>
   );

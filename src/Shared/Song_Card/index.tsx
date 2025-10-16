@@ -4,9 +4,10 @@ import { motion, Variants } from "framer-motion";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { TrendingUp, Music } from "lucide-react";
+import Link from "next/link";
 
 export interface SongItem {
-    id: number;
+    Id: number;
     title: string;
     artist: string;
     price: string;
@@ -41,8 +42,11 @@ const cardVariants: Variants = {
         transition: { duration: 0.3, ease: "easeInOut" },
     },
 };
+const handleDetailsClick = (SongID : number) => {
+    console.log(SongID);
+}
 
-export default function MusicCatalog({ songs }: MusicCatalogProps) {
+export default function SongCard({ songs }: MusicCatalogProps) {
     return (
         <section className="w-full p-0 m-0">
             <div className=" px-4 md:px-6">
@@ -55,7 +59,7 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                 >
                     {songs.map((song, index) => (
                         <motion.div
-                            key={song.id}
+                            key={song.Id}
                             variants={cardVariants}
                             whileHover="hover"
                             className="h-full "
@@ -70,8 +74,8 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                                                 src={song.coverImage}
                                                 alt={song.title}
                                                 className="w-full h-full object-fill transition-transform duration-500 group-hover:scale-110"
-                                                // initial={{ scale: }}
-                                                // whileHover={{ scale: 1.1 }}
+                                            // initial={{ scale: }}
+                                            // whileHover={{ scale: 1.1 }}
                                             />
                                         ) : (
                                             <div className="w-full h-full flex items-center justify-center text-gray-500 text-sm">
@@ -146,13 +150,15 @@ export default function MusicCatalog({ songs }: MusicCatalogProps) {
                                                 {song.genre}
                                             </motion.span>
 
-                                            <motion.div
-                                                initial={{ opacity: 0, x: 20 }}
-                                                whileInView={{ opacity: 1, x: 0 }}
-                                                transition={{ delay: index * 0.1 + 0.8 }}
-                                            >
-                                                <Button size="sm">View Details</Button>
-                                            </motion.div>
+                                            <Link href={`/marketplace/${song.Id}`}>
+                                                <motion.div
+                                                    initial={{ opacity: 0, x: 20 }}
+                                                    whileInView={{ opacity: 1, x: 0 }}
+                                                    transition={{ delay: index * 0.1 + 0.8 }}
+                                                >
+                                                    <Button onClick={() =>handleDetailsClick(song.Id)} size="sm">View Details</Button>
+                                                </motion.div>
+                                            </Link>
                                         </div>
                                     </div>
                                 </CardContent>
