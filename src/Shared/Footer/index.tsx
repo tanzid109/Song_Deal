@@ -71,7 +71,7 @@ export default function Footer() {
                             placeholder="Your email address"
                             className=" w-full bg-[#04004E]  border border-[#443FA1] text-white placeholder-gray-400 focus-visible:ring-[#5B3FFF] p-[24px]"
                         />
-                        <Button className="bg-gradient-to-r from-[#6C4CFF] to-[#5B3FFF] text-white px-6 hover:opacity-90">
+                        <Button className="bg-gradient-to-r from-[#6C4CFF] to-[#5B3FFF] text-white px-6 hover:opacity-90 w-full lg:w-auto">
                             Join Now
                         </Button>
                     </form>

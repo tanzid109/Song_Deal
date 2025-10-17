@@ -11,7 +11,7 @@ import {
 } from "@/components/ui/select";
 import { Slider } from "@/components/ui/slider";
 import FeaturedSongs from "@/Homepage/Featured/Songs";
-import Revolution from "@/Homepage/Revolution";
+import Revolution from "@/Shared/Revolution";
 import Pagination from "@/Shared/Pagination";
 
 export default function SongFilters() {
@@ -19,20 +19,19 @@ export default function SongFilters() {
 
     return (
         <main className=" mt-10">
-            <h2 className="text-4xl w-6/12  mx-auto font-semibold">Discover Song Assets</h2>
+            <h2 className="text-2xl text-center md:text-left lg:w-6/12  mx-auto font-semibold">Discover Song Assets</h2>
             {/* filters */}
-
             <div className=" flex flex-col justify-center items-center mt-10 space-y-6">
                 {/* Search & Dropdown Filters */}
-                <div className="w-6/12 flex gap-3">
+                <div className="lg:w-6/12 lg:flex lg:gap-3 grid grid-cols-2 gap-4">
                     <Input
                         type="text"
                         placeholder="Search.."
-                        className="rounded-full w-full bg-white border-none shadow-md"
+                        className="rounded-full w-full bg-white border-none shadow-md hidden lg:flex"
                     />
 
                     <Select>
-                        <SelectTrigger className="rounded-full bg-white border-none shadow-md">
+                        <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md">
                             <SelectValue placeholder="Genre" />
                         </SelectTrigger>
                         <SelectContent>
@@ -43,7 +42,7 @@ export default function SongFilters() {
                     </Select>
 
                     <Select>
-                        <SelectTrigger className="rounded-full bg-white border-none shadow-md font-medium">
+                        <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md font-medium">
                             <SelectValue placeholder="ROI" />
                         </SelectTrigger>
                         <SelectContent>
@@ -54,7 +53,7 @@ export default function SongFilters() {
                     </Select>
 
                     <Select>
-                        <SelectTrigger className="rounded-full bg-white border-none shadow-md font-medium">
+                        <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md font-medium">
                             <SelectValue placeholder="Trending" />
                         </SelectTrigger>
                         <SelectContent>
@@ -64,7 +63,7 @@ export default function SongFilters() {
                     </Select>
 
                     <Select>
-                        <SelectTrigger className="rounded-full bg-white border-none shadow-md font-medium">
+                        <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md font-medium">
                             <SelectValue placeholder="Region" />
                         </SelectTrigger>
                         <SelectContent>
@@ -76,9 +75,9 @@ export default function SongFilters() {
                 </div>
 
                 {/* Price Range */}
-                <div className="w-1/2 space-y-3">
+                <div className="lg:w-1/2 w-10/12 flex flex-col space-y-3">
                     <p className="font-medium text-sm">Price Range</p>
-                    <div className="flex items-center gap-4">
+                    <div className="flex flex-col md:flex-row items-center gap-4">
                         <Slider
                             value={priceRange}
                             onValueChange={setPriceRange}
@@ -87,15 +86,16 @@ export default function SongFilters() {
                             step={10}
                             className="flex-1"
                         />
-                        <Button >
-                            Apply Filters
-                        </Button>
+
                     </div>
                     <div className="flex justify-between text-sm text-muted-foreground">
                         <span>${priceRange[0]}</span>
                         <span>${priceRange[1]}</span>
                     </div>
                 </div>
+                <Button size="lg">
+                    Apply Filters
+                </Button>
             </div>
 
             {/* songs */}
@@ -104,10 +104,10 @@ export default function SongFilters() {
                 <FeaturedSongs />
                 <FeaturedSongs />
                 <FeaturedSongs />
-                <Pagination/>
+                <Pagination />
             </div>
             <div>
-                <Revolution/>
+                <Revolution />
             </div>
         </main>
     );

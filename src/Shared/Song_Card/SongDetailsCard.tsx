@@ -72,12 +72,12 @@ export default function SongDetailsCard() {
                             </p>
                         </div>
                         {/* genre */}
-                        <div className="grid sm:grid-cols-2 border-t border-b gap-3 text-sm">
+                        <div className="lg:grid lg:grid-cols-2 flex justify-between border-t border-b lg:gap-3 text-sm">
                             <div className="p-4">
                                 <p className="font-medium">Genre</p>
                                 <p className="text-muted-foreground">Pop</p>
                             </div>
-                            <div className="border-l p-4">
+                            <div className="md:border-l p-4">
                                 <p className="font-medium">Region</p>
                                 <p className="text-muted-foreground">North America</p>
                             </div>
@@ -132,11 +132,11 @@ export default function SongDetailsCard() {
                     {/* investment */}
                     <Card className="px-4">
                         <h3 className="font-semibold ">Investment</h3>
-                        <div className="flex justify-between text-sm border-b py-2">
+                        <div className="flex justify-between text-sm border-b pb-3">
                             <p className="text-muted-foreground">Type</p>
                             <p>Sale</p>
                         </div>
-                        <div className="flex justify-between text-sm py-2">
+                        <div className="flex justify-between text-sm ">
                             <p className="text-muted-foreground">Shares</p>
                             <p>50%</p>
                         </div>

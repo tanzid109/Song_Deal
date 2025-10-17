@@ -3,7 +3,7 @@ import { ChevronLeft, ChevronRight } from 'lucide-react';
 
 export default function Pagination() {
     const [currentPage, setCurrentPage] = useState(1);
-    const totalPages = 23;
+    const totalPages = 50;
 
     const getPageNumbers = () => {
         const pages: (number | string)[] = [];
@@ -40,7 +40,7 @@ export default function Pagination() {
     };
 
     return (
-        <div className="w-2/12 mx-auto flex items-center justify-center p-2 bg-white rounded-md shadow-md mt-6">
+        <div className="lg:w-2/12 mx-auto flex items-center justify-center p-2 bg-white rounded-md shadow-md mt-6">
             <div className="flex items-center gap-1">
                 <button
                     onClick={() => setCurrentPage(Math.max(1, currentPage - 1))}

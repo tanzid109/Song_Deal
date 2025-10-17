@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 
 export default function Revolution() {
     return (
-        <section className="w-full bg-[#635BFF1A] lg:py-52 text-center">
+        <section className="w-full bg-[#635BFF1A] lg:py-52 py-6 text-center">
             <div className="max-w-3xl mx-auto px-4">
                 {/* Title */}
                 <motion.h2
@@ -35,10 +35,10 @@ export default function Revolution() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
-                    <Button variant="default">
+                    <Button variant="default" className="w-full md:w-auto">
                         Sign up as Artist
                     </Button>
-                    <Button variant="secondary">
+                    <Button variant="secondary" className="w-full md:w-auto">
                         Sign up as Investor
                     </Button>
                 </motion.div>

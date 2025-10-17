@@ -1,7 +1,7 @@
 import FeaturedMarket from "@/Homepage/Featured";
 import FeaturedAfrica from "@/Homepage/Featured_Africa";
 import { HeroSection } from "@/Homepage/Hero";
-import Revolution from "@/Homepage/Revolution";
+import Revolution from "@/Shared/Revolution";
 import VisionSection from "@/Homepage/Vision";
 import Works from "@/Homepage/Works";
 
@@ -15,7 +15,7 @@ export default function Home() {
         <FeaturedAfrica />
       </div>
       <Works />
-      <Revolution/>
+      <Revolution />
     </>
   );
 }
