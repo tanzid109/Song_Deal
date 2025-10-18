@@ -35,9 +35,12 @@ export default function SongFilters() {
                             <SelectValue placeholder="Genre" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="pop">Pop</SelectItem>
-                            <SelectItem value="rock">Rock</SelectItem>
-                            <SelectItem value="hiphop">Hip-hop</SelectItem>
+                            <SelectItem value="pop">Hip-Hop/Rap</SelectItem>
+                            <SelectItem value="rock">Pop</SelectItem>
+                            <SelectItem value="hiphop">Rock</SelectItem>
+                            <SelectItem value="hiphop">Country</SelectItem>
+                            <SelectItem value="hiphop">R&B and Soul</SelectItem>
+                            <SelectItem value="hiphop">House</SelectItem>
                         </SelectContent>
                     </Select>
 
@@ -64,12 +67,11 @@ export default function SongFilters() {
 
                     <Select>
                         <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md font-medium">
-                            <SelectValue placeholder="Region" />
+                            <SelectValue placeholder="Sorting" />
                         </SelectTrigger>
                         <SelectContent>
-                            <SelectItem value="us">US</SelectItem>
-                            <SelectItem value="eu">EU</SelectItem>
-                            <SelectItem value="asia">Asia</SelectItem>
+                            <SelectItem value="us">Newest</SelectItem>
+                            <SelectItem value="eu">Most popular</SelectItem>
                         </SelectContent>
                     </Select>
                 </div>

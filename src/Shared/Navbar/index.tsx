@@ -56,12 +56,16 @@ export default function Navbar() {
 
                 {/* Desktop Buttons */}
                 <div className="hidden md:flex space-x-3">
-                    <Button variant="secondary">
-                        Sign in
-                    </Button>
-                    <Button variant="default">
-                        Get started
-                    </Button>
+                    <Link href={"/login"}>
+                        <Button variant="secondary">
+                            Sign in
+                        </Button>
+                    </Link>
+                    <Link href="/register">
+                        <Button variant="default">
+                            Get started
+                        </Button>
+                    </Link>
                 </div>
 
                 {/* Mobile Menu */}
@@ -85,13 +89,17 @@ export default function Navbar() {
                                     {link.name}
                                 </Link>
                             ))}
-                            <div className="flex flex-col gap-1">
-                                <Button variant="secondary" size="sm">
-                                    Sign in
-                                </Button>
-                                <Button variant="default" size="sm">
-                                    Get started
-                                </Button>
+                            <div className="flex flex-col gap-2.5 ">
+                                <Link href={"/login"}>
+                                    <Button variant="secondary" size="sm" className="w-full font-semibold text-sm">
+                                        Sign in
+                                    </Button>
+                                </Link>
+                                <Link href="/register">
+                                    <Button variant="default" size="sm" className="w-full font-semibold text-sm">
+                                        Get started
+                                    </Button>
+                                </Link>
                             </div>
                         </nav>
                     </SheetContent>
