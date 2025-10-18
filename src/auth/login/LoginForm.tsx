@@ -14,14 +14,15 @@ import Link from "next/link";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { loginSchema } from "./LoginValidation";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
-import { Checkbox } from "@/components/ui/checkbox";
-import { Label } from "@/components/ui/label";
 import { useState } from "react";
 import { Eye, EyeOff } from "lucide-react";
+import Lottie from "lottie-react";
+import SingAnimation from "../../../public/animation/sing.json";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function LoginForm() {
     const router = useRouter();
+
     const form = useForm({
         resolver: zodResolver(loginSchema),
         defaultValues: {
@@ -29,6 +30,7 @@ export default function LoginForm() {
             password: "",
         },
     });
+
 
     const {
         formState: { isSubmitting },
@@ -38,37 +40,42 @@ export default function LoginForm() {
 
     const onSubmit: SubmitHandler<FieldValues> = async (data) => {
         try {
-            console.log(data);
+            // Include role in registration data
+            const LoginData = {
+                email: data.email,
+                password: data.password,
+            };
+
+            console.log("Registration Data:", LoginData);
+
+            // Here you would call your API to save to database
+            // Example:
+            // const response = await fetch('/api/register', {
+            //     method: 'POST',
+            //     headers: { 'Content-Type': 'application/json' },
+            //     body: JSON.stringify(registrationData)
+            // });
+
             await new Promise((resolve) => setTimeout(resolve, 3000));
         } catch (error) {
             console.error(error);
         } finally {
-            router.push("/admin/dashboard");
+            router.push("/");
         }
     };
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-gray-50 p-4">
-            <div className="flex w-full max-w-2/3 h-auto bg-[#F4FAFD] rounded-2xl overflow-hidden shadow-md p-2">
-                {/* Left Section - Logo */}
-                <div className="flex flex-1 justify-center items-center bg-white rounded-2xl">
-                    <Image
-                        src="/assets/logo.png"
-                        alt="Edgewater Logo"
-                        width={300}
-                        height={200}
-                        className="object-contain"
-                    />
-                </div>
+        <div className="min-h-screen bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10 p-6 sm:p-8 mt-4 md:m-0 rounded-2xl shadow-xl bg-white w-full max-w-6xl mb-4 border-t-2 ">
 
-                {/* Login Form */}
-                <div className="flex flex-1 flex-col justify-center items-center bg-[#2489B0] p-10 text-white rounded-2xl ml-2">
-                    <div className="border bg-white rounded-xl w-full max-w-md p-10 shadow-md my-12">
-                        <div className="flex flex-col items-center justify-center mb-6">
-                            <h1 className="text-2xl font-semibold text-gray-800">Welcome Back!</h1>
-                            <p className="text-gray-500 text-sm mt-1">
-                                Sign in to continue your account
-                            </p>
+                {/* Left Section - Form */}
+                <div className="flex flex-col justify-center items-center text-black rounded-2xl w-full max-w-md">
+                    <div className="w-full md:my-10">
+                        <div className="text-left mb-6">
+                            <h1 className="text-2xl font-semibold text-gray-800 mb-2">
+                                Login
+                            </h1>
+                            <p className="text-gray-500 text-base">Let&apos;s go to your account</p>
                         </div>
 
                         <Form {...form}>
@@ -79,15 +86,9 @@ export default function LoginForm() {
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel className="text-gray-700">Email</FormLabel>
+                                            <FormLabel className="text-gray-700">Email Address</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    type="email"
-                                                    {...field}
-                                                    value={field.value || ""}
-                                                    placeholder="Enter your email"
-                                                    className="rounded-lg border-gray-300 focus:border-[#2489B0] focus:ring-[#2489B0]"
-                                                />
+                                                <Input type="email" {...field} placeholder="Email Address" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
@@ -106,9 +107,7 @@ export default function LoginForm() {
                                                     <Input
                                                         type={showPassword ? "text" : "password"}
                                                         {...field}
-                                                        value={field.value || ""}
-                                                        placeholder="Enter your password"
-                                                        className="rounded-lg border-gray-300 focus:border-[#2489B0] focus:ring-[#2489B0] pr-10"
+                                                        placeholder="Enter Password"
                                                     />
                                                 </FormControl>
                                                 <Button
@@ -125,30 +124,46 @@ export default function LoginForm() {
                                         </FormItem>
                                     )}
                                 />
-
-                                {/* Remember Me + Forgot */}
-                                <div className="flex items-center justify-between text-sm mt-2">
-                                    <div className="flex items-center gap-2">
-                                        <Checkbox id="remember" />
-                                        <Label htmlFor="remember" className="text-gray-700">
-                                            Remember me
-                                        </Label>
-                                    </div>
-                                    <Link href="/forget-password" className="text-[#2489B0] font-medium">
-                                        Forgot Password?
-                                    </Link>
-                                </div>
-
                                 {/* Submit Button */}
                                 <Button
                                     type="submit"
-                                    className="mt-5 w-full bg-[#2489B0] hover:bg-[#1f7898] text-white"
-                                    disabled={isSubmitting}
+                                    disabled={
+                                        isSubmitting
+                                    }
+                                    className="w-full flex justify-center items-center gap-2"
                                 >
-                                    {isSubmitting ? "Logging in..." : "Login"}
+                                    {isSubmitting ? (
+                                        <>
+                                            <Spinner className="text-xl" />
+                                            Singing...
+                                        </>
+                                    ) : (
+                                        "Singing"
+                                    )}
                                 </Button>
                             </form>
                         </Form>
+
+                        <h2 className="text-center mt-4 text-gray-700">
+                            Already have an account?
+                            <Link
+                                href="/login"
+                                className="text-[#635BFF] font-semibold ml-1 hover:underline"
+                            >
+                                Sign In
+                            </Link>
+                        </h2>
+                    </div>
+                </div>
+
+                {/* Right Section - Lottie Animation */}
+                <div className="flex justify-center items-center w-full lg:w-1/2 p-5">
+                    <div className="w-[100%] md:w-[60%] lg:w-[70%] xl:w-[100%]">
+                        <Lottie
+                            animationData={SingAnimation}
+                            loop={true}
+                            className="w-full h-auto"
+                        />
                     </div>
                 </div>
             </div>
