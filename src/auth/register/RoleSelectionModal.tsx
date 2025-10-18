@@ -8,8 +8,7 @@ import {
     DialogHeader,
     DialogTitle,
 } from "@/components/ui/dialog";
-import { DollarSign } from "lucide-react";
-import Image from "next/image";
+import { DollarSign, User } from "lucide-react";
 
 interface RoleSelectionModalProps {
     open: boolean;
@@ -35,7 +34,7 @@ export default function RoleSelectionModal({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="max-w-sm md:max-w-md  mx-auto">
+            <DialogContent className="w-11/12 md:max-w-md mx-auto">
                 <DialogHeader>
                     <DialogTitle className="text-2xl font-semibold">
                         Choose Your Account
@@ -46,17 +45,13 @@ export default function RoleSelectionModal({
                     {/* Artist Option */}
                     <div
                         onClick={() => setSelectedRole("artist")}
-                        className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedRole === "artist"
+                        className={`flex items-center gap-4 p-2 md:p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedRole === "artist"
                             ? "border-[#635BFF] bg-[#635BFF]/10"
                             : "border-gray-200 hover:border-gray-300"
                             }`}
                     >
-                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
-                            <Image src="/assets/user.png"
-                                width={26}
-                                height={26}
-                                alt="user"
-                                className="h-auto w-auto" />
+                        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center">
+                            <User className="text-white"/>
                         </div>
                         <div className="flex-1">
                             <h3 className="font-semibold text-gray-900">Artist</h3>
@@ -79,7 +74,7 @@ export default function RoleSelectionModal({
                     {/* Investor Option */}
                     <div
                         onClick={() => setSelectedRole("investor")}
-                        className={`flex items-center gap-4 p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedRole === "investor"
+                        className={`flex items-center gap-4 p-2 md:p-4 rounded-lg border-2 cursor-pointer transition-all ${selectedRole === "investor"
                             ? "border-[#635BFF] bg-[#635BFF]/10"
                             : "border-gray-200 hover:border-gray-300"
                             }`}
