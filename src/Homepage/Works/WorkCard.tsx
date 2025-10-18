@@ -74,32 +74,6 @@ export default function WorkCard() {
                     // Add `relative` here to position the SVGs
                     className="relative grid md:grid-cols-3 gap-12"
                 >
-                    {/* SVG Connector 1 -> 2 */}
-                    <div className="hidden md:block absolute top-0 left-0 w-full h-full -z-10">
-                        <svg width="100%" height="100%" preserveAspectRatio="none">
-                            <path
-                                d="M 28% 45% C 35% 85%, 45% 85%, 53% 45%"
-                                stroke="#C3C0FD"
-                                strokeWidth="2"
-                                fill="none"
-                                strokeDasharray="5 5"
-                            />
-                        </svg>
-                    </div>
-
-                    {/* SVG Connector 2 -> 3 */}
-                    <div className="hidden md:block absolute top-0 left-0 w-full h-full -z-10">
-                        <svg width="100%" height="100%" preserveAspectRatio="none">
-                            <path
-                                d="M 62% 45% C 69% 5%, 79% 5%, 86% 45%"
-                                stroke="#C3C0FD"
-                                strokeWidth="2"
-                                fill="none"
-                                strokeDasharray="5 5"
-                            />
-                        </svg>
-                    </div>
-
                     {visionPoints.map((point, index) => (
                         <motion.div
                             key={point.title}

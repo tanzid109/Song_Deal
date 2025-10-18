@@ -14,7 +14,11 @@ export default function Footer() {
                 <div className="flex flex-col items-start">
                     {/* Logo */}
                     <Link href="/" className="flex flex-col justify-center items-center gap-1 lg:gap-0">
-                        <Image src="/assets/logo.png" alt="SongDeal Logo" width={60} height={40} />
+                        <Image src="/assets/logo.png"
+                            alt="SongDeal Logo"
+                            width={60}
+                            height={40}
+                            className="h-auto w-auto" />
                         <div className="flex flex-col lg:justify-center lg:items-center">
                             <h1 className="text-xl font-semibold text-[#5B3FFF]">SongDeal</h1>
                             <p className="text-[8px] text-gray-500 tracking-normal">

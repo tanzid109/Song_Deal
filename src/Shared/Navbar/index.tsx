@@ -5,15 +5,18 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
-import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
     NavigationMenu,
     NavigationMenuList,
     NavigationMenuItem,
     NavigationMenuLink,
 } from "@/components/ui/navigation-menu";
+import { useState } from "react";
+import RoleSelectionModal from "@/auth/register/RoleSelectionModal";
 
 export default function Navbar() {
+    const [isModalOpen, setIsModalOpen] = useState(false);
     const pathname = usePathname();
 
     const navLinks = [
@@ -28,7 +31,7 @@ export default function Navbar() {
             <div className="lg:px-20 lg:py-2 mx-auto flex items-center justify-between py-1 px-2 shadow-md">
                 {/* Logo */}
                 <Link href="/" className="flex lg:flex-col justify-center items-center gap-1 lg:gap-0">
-                    <Image src="/assets/logo.png" alt="SongDeal Logo" width={60} height={40} />
+                    <Image src="/assets/logo.png" alt="SongDeal Logo" width={60} height={40} className="h-auto w-auto" />
                     <div className="flex flex-col lg:justify-center lg:items-center">
                         <h1 className="text-xl font-semibold text-[#5B3FFF]">SongDeal</h1>
                         <p className="text-[8px] text-gray-500 tracking-normal">
@@ -61,11 +64,11 @@ export default function Navbar() {
                             Sign in
                         </Button>
                     </Link>
-                    <Link href="/register">
-                        <Button variant="default">
-                            Get started
-                        </Button>
-                    </Link>
+                    <Button variant="default"
+                        onClick={() => setIsModalOpen(true)}>
+                        Get started
+                    </Button>
+
                 </div>
 
                 {/* Mobile Menu */}
@@ -76,35 +79,43 @@ export default function Navbar() {
                         </Button>
                     </SheetTrigger>
                     <SheetContent side="right" className="w-auto p-5 bg-white">
-                        <nav className="flex flex-col space-y-3 mt-8">
-                            {navLinks.map((link) => (
-                                <Link
-                                    key={link.href}
-                                    href={link.href}
-                                    className={`font-medium ${pathname === link.href
-                                        ? "text-[#5B3FFF] font-bold"
-                                        : "text-gray-800"
-                                        }`}
-                                >
-                                    {link.name}
-                                </Link>
-                            ))}
-                            <div className="flex flex-col gap-2.5 ">
-                                <Link href={"/login"}>
-                                    <Button variant="secondary" size="sm" className="w-full font-semibold text-sm">
-                                        Sign in
-                                    </Button>
-                                </Link>
-                                <Link href="/register">
-                                    <Button variant="default" size="sm" className="w-full font-semibold text-sm">
-                                        Get started
-                                    </Button>
-                                </Link>
-                            </div>
-                        </nav>
+                        <SheetTitle>
+                            <nav className="flex flex-col space-y-3 mt-8">
+                                {navLinks.map((link) => (
+                                    <Link
+                                        key={link.href}
+                                        href={link.href}
+                                        className={`font-medium ${pathname === link.href
+                                            ? "text-[#5B3FFF] font-bold"
+                                            : "text-gray-800"
+                                            }`}
+                                    >
+                                        {link.name}
+                                    </Link>
+                                ))}
+                                <div className="flex flex-col gap-2.5 ">
+                                    <Link href={"/login"}>
+                                        <Button variant="secondary" size="sm" className="w-full font-semibold text-sm">
+                                            Sign in
+                                        </Button>
+                                    </Link>
+                                    <Link href="/register">
+                                        <Button variant="default" size="sm" className="w-full font-semibold text-sm"
+                                            onClick={() => setIsModalOpen(true)}>
+                                            Get started
+                                        </Button>
+                                    </Link>
+                                </div>
+                            </nav>
+                        </SheetTitle>
+                        <SheetDescription/>
                     </SheetContent>
                 </Sheet>
             </div>
+            <RoleSelectionModal
+                open={isModalOpen}
+                onOpenChange={setIsModalOpen}
+            />
         </header>
     );
 }
