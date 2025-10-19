@@ -19,6 +19,8 @@ import { Eye, EyeOff } from "lucide-react";
 import Lottie from "lottie-react";
 import SingAnimation from "../../../public/animation/sing.json";
 import { Spinner } from "@/components/ui/spinner";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Label } from "@/components/ui/label";
 
 export default function LoginForm() {
     const router = useRouter();
@@ -65,8 +67,8 @@ export default function LoginForm() {
     };
 
     return (
-        <div className="min-h-screen bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10 p-6 sm:p-8 mt-4 md:m-0 rounded-2xl shadow-xl bg-white w-full max-w-6xl mb-4 border-t-2 ">
+        <div className="md:my-10 bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10 p-6 sm:p-8 mt-4 md:m-0 rounded-2xl shadow-xl bg-white w-full max-w-6xl mb-4 border-t-2 border-[#635BFF]">
 
                 {/* Left Section - Form */}
                 <div className="flex flex-col justify-center items-center text-black rounded-2xl w-full max-w-md">
@@ -124,6 +126,18 @@ export default function LoginForm() {
                                         </FormItem>
                                     )}
                                 />
+                                {/* Remember Me + Forgot */}
+                                <div className="flex items-center justify-between text-sm mt-4">
+                                    <div className="flex items-center gap-2">
+                                        <Checkbox id="remember"/>
+                                        <Label htmlFor="remember" className="text-[#312B36] font-semibold">
+                                            Remember me
+                                        </Label>
+                                    </div>
+                                    <Link href="/forget" className="text-[#FF4D4F] font-medium">
+                                        Forgot Password?
+                                    </Link>
+                                </div>
                                 {/* Submit Button */}
                                 <Button
                                     type="submit"
@@ -143,7 +157,7 @@ export default function LoginForm() {
                                 </Button>
                             </form>
                         </Form>
-
+                        
                         <h2 className="text-center mt-4 text-gray-700">
                             Already have an account?
                             <Link

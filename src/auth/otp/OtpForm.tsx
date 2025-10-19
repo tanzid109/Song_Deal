@@ -62,8 +62,8 @@ export default function OtpForm() {
     return (
         <>
             {/* OTP FORM */}
-            <div className="min-h-screen flex items-center justify-center bg-white p-4">
-                <div className="w-full max-w-md bg-white text-black rounded-xl shadow-lg p-8 sm:p-10">
+            <div className="md:mt-10 mt-2 flex items-center justify-center bg-white p-4">
+                <div className="w-full max-w-md border-t-2 border-[#635BFF] bg-white text-black rounded-xl shadow-lg p-8 sm:p-10">
                     {/* Header */}
                     <div className="text-left mb-6">
                         <h1 className="text-2xl font-semibold">Verification Code</h1>

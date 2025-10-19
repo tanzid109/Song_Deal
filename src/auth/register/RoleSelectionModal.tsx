@@ -34,9 +34,9 @@ export default function RoleSelectionModal({
 
     return (
         <Dialog open={open} onOpenChange={onOpenChange}>
-            <DialogContent className="w-11/12 md:max-w-md mx-auto">
+            <DialogContent className="w-11/12 md:max-w-md mx-auto backdrop-blur-2xl bg-black/60">
                 <DialogHeader>
-                    <DialogTitle className="text-2xl font-semibold">
+                    <DialogTitle className="text-2xl font-semibold text-white">
                         Choose Your Account
                     </DialogTitle>
                 </DialogHeader>
@@ -50,12 +50,12 @@ export default function RoleSelectionModal({
                             : "border-gray-200 hover:border-gray-300"
                             }`}
                     >
-                        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center">
-                            <User className="text-white"/>
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                            <User className="w-5 h-5 text-gray-900" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900">Artist</h3>
-                            <p className="text-sm text-gray-600">
+                            <h3 className="font-semibold text-white">Artist</h3>
+                            <p className="text-sm text-white">
                                 For creators who want to turn their music into assets.
                             </p>
                         </div>
@@ -79,12 +79,12 @@ export default function RoleSelectionModal({
                             : "border-gray-200 hover:border-gray-300"
                             }`}
                     >
-                        <div className="w-10 h-10 rounded-full bg-gray-900 flex items-center justify-center">
-                            <DollarSign className="w-5 h-5 text-white font-bold" />
+                        <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center">
+                            <DollarSign className="w-5 h-5 text-gray-900" />
                         </div>
                         <div className="flex-1">
-                            <h3 className="font-semibold text-gray-900">Investor</h3>
-                            <p className="text-sm text-gray-600">
+                            <h3 className="font-semibold text-white">Investor</h3>
+                            <p className="text-sm text-white">
                                 For those looking to invest in the future of music.
                             </p>
                         </div>

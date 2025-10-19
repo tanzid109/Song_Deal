@@ -15,6 +15,8 @@ import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { forgetSchema } from "./ForgetValidation";
+import Link from "next/link";
+import { Spinner } from "@/components/ui/spinner";
 
 export default function ForgetPasswordForm() {
     const router = useRouter();
@@ -42,64 +44,51 @@ export default function ForgetPasswordForm() {
     };
 
     return (
-        <div className="h-screen w-screen flex items-center justify-center bg-gray-50 p-4">
-            <div className="flex w-full max-w-2/3 h-2/3 p-2 bg-[#F4FAFD] rounded-2xl overflow-hidden shadow-md">
-                {/* Left Section - Logo */}
-                <div className="flex flex-1 justify-center items-center bg-white p-6 rounded-2xl">
-                    <Image
-                        src="/assets/logo.png"
-                        alt="Edgewater Logo"
-                        width={300}
-                        height={200}
-                        className="object-contain"
-                    />
-                </div>
+        <div className="min-h-screen bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10 p-6 sm:p-8 mt-4 md:m-0 rounded-2xl shadow-xl bg-white w-full max-w-md mb-4 border-t-2 ">
 
-                {/* Right Section - Form */}
-                <div className="flex flex-1 flex-col justify-center items-center bg-[#2489B0] p-10 text-white rounded-2xl ml-2">
-                    <Image
-                        src="/assets/Email.png"
-                        alt="Forget Password"
-                        width={100}
-                        height={100}
-                    />
-
-                    <div className="bg-white text-black mt-6 rounded-xl w-full max-w-md p-8 shadow-md">
-                        <div className="text-center mb-6">
-                            <h1 className="text-xl font-semibold">Verify Email</h1>
-                            <p className="text-sm text-gray-600 mt-2">
-                                Enter your email to get started. We’ll send you a verification
-                                code.
-                            </p>
+                {/* Left Section - Form */}
+                <div className="flex flex-col justify-center items-center text-black rounded-2xl w-full max-w-md">
+                    <div className="w-full md:my-10">
+                        <div className="text-left mb-6">
+                            <h3 className="text-2xl font-semibold text-gray-800 mb-2">
+                                Forgot Password
+                            </h3>
+                            <p className="text-gray-500 text-base">Enter your email, we will send a verification code to your email.</p>
                         </div>
 
                         <Form {...form}>
                             <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-5">
+                                {/* Email Field */}
                                 <FormField
                                     control={form.control}
                                     name="email"
                                     render={({ field }) => (
                                         <FormItem>
-                                            <FormLabel>Email</FormLabel>
+                                            <FormLabel className="text-gray-700">Email Address</FormLabel>
                                             <FormControl>
-                                                <Input
-                                                    type="email"
-                                                    placeholder="Enter your email"
-                                                    {...field}
-                                                    value={field.value || ""}
-                                                />
+                                                <Input type="email" {...field} placeholder="Email Address" />
                                             </FormControl>
                                             <FormMessage />
                                         </FormItem>
                                     )}
                                 />
-
+                                {/* Submit Button */}
                                 <Button
                                     type="submit"
-                                    className="w-full bg-[#2489B0] hover:bg-[#1f7899]"
-                                    disabled={isSubmitting}
+                                    disabled={
+                                        isSubmitting
+                                    }
+                                    className="w-full flex justify-center items-center gap-2"
                                 >
-                                    {isSubmitting ? "Getting OTP..." : "Get OTP"}
+                                    {isSubmitting ? (
+                                        <>
+                                            <Spinner className="text-xl" />
+                                            Sending OTP...
+                                        </>
+                                    ) : (
+                                        "Continue"
+                                    )}
                                 </Button>
                             </form>
                         </Form>
