@@ -13,9 +13,7 @@ import { Input } from "@/components/ui/input";
 import { FieldValues, SubmitHandler, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { forgetSchema } from "./ForgetValidation";
-import Link from "next/link";
 import { Spinner } from "@/components/ui/spinner";
 
 export default function ForgetPasswordForm() {
@@ -37,14 +35,14 @@ export default function ForgetPasswordForm() {
             console.log(data);
             // simulate API request
             await new Promise((resolve) => setTimeout(resolve, 1000));
-            router.push("/otp");
+            router.push("/verification");
         } catch (error) {
             console.error(error);
         }
     };
 
     return (
-        <div className="min-h-screen bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
+        <div className="md:my-10 my-2 bg-white flex justify-center items-center px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col-reverse lg:flex-row justify-center items-center gap-10 p-6 sm:p-8 mt-4 md:m-0 rounded-2xl shadow-xl bg-white w-full max-w-md mb-4 border-t-2 ">
 
                 {/* Left Section - Form */}
@@ -84,7 +82,7 @@ export default function ForgetPasswordForm() {
                                     {isSubmitting ? (
                                         <>
                                             <Spinner className="text-xl" />
-                                            Sending OTP...
+                                            Sending Code...
                                         </>
                                     ) : (
                                         "Continue"
