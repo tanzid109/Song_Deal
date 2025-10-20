@@ -31,16 +31,16 @@ export default function SongFilters() {
                     />
 
                     <Select>
-                        <SelectTrigger className="w-full md:w-1/3 rounded-full bg-white border-none shadow-md">
-                            <SelectValue placeholder="Genre" />
+                        <SelectTrigger className="w-full md:w-1/3  rounded-full bg-white border-none shadow-md">
+                            <SelectValue placeholder="Genre"/>
                         </SelectTrigger>
-                        <SelectContent>
+                        <SelectContent >
                             <SelectItem value="pop">Hip-Hop/Rap</SelectItem>
                             <SelectItem value="rock">Pop</SelectItem>
-                            <SelectItem value="hiphop">Rock</SelectItem>
-                            <SelectItem value="hiphop">Country</SelectItem>
-                            <SelectItem value="hiphop">R&B and Soul</SelectItem>
-                            <SelectItem value="hiphop">House</SelectItem>
+                            <SelectItem value="Rock">Rock</SelectItem>
+                            <SelectItem value="Country">Country</SelectItem>
+                            <SelectItem value="R&B and Soul">R&B and Soul</SelectItem>
+                            <SelectItem value="House">House</SelectItem>
                         </SelectContent>
                     </Select>
 
