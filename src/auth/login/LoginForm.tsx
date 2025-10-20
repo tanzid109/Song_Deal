@@ -148,11 +148,10 @@ export default function LoginForm() {
                                 >
                                     {isSubmitting ? (
                                         <>
-                                            <Spinner className="text-xl" />
-                                            Singing...
+                                            <Spinner className="text-xl" />                                          
                                         </>
                                     ) : (
-                                        "Singing"
+                                        "Sing In"
                                     )}
                                 </Button>
                             </form>

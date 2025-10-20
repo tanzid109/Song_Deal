@@ -1,9 +1,13 @@
 "use client";
 
+import RoleSelectionModal from "@/auth/register/RoleSelectionModal";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
+import { useState } from "react";
 
 export default function Revolution() {
+    const [isModalOpen, setIsModalOpen] = useState(false)
+
     return (
         <section className="w-full bg-[#635BFF1A] lg:py-52 py-6 text-center">
             <div className="max-w-3xl mx-auto px-4">
@@ -35,14 +39,21 @@ export default function Revolution() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                     className="flex flex-col sm:flex-row items-center justify-center gap-4"
                 >
-                    <Button variant="default" className="w-full md:w-auto">
+                    <Button variant="default" className="w-full md:w-auto"
+                        onClick={() => setIsModalOpen(true)}>
                         Sign up as Artist
                     </Button>
-                    <Button variant="secondary" className="w-full md:w-auto">
+                    <Button variant="secondary" className="w-full md:w-auto"
+                        onClick={() => setIsModalOpen(true)}>
                         Sign up as Investor
                     </Button>
                 </motion.div>
             </div>
+            {/* Role Selection Modal */}
+            <RoleSelectionModal
+                open={isModalOpen}
+                onOpenChange={setIsModalOpen}
+            />
         </section>
     );
 }
