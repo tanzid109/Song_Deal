@@ -3,7 +3,7 @@ import { Check, AlertCircle, CreditCard } from 'lucide-react';
 
 export default function Withdrawal() {
     return (
-        <div className=" bg-gray-50 p-6 md:p-4">
+        <div className=" bg-gray-50 p-2 md:p-4">
             <div className='grid grid-cols-1 md:grid-cols-3 gap-6 mb-8'>
                 <div className='flex flex-col items-center justify-center p-10 bg-white rounded-xl shadow-sm'>
                     <h3 className='text-base'>Total User</h3>
@@ -40,7 +40,7 @@ export default function Withdrawal() {
                 {/* Status Cards */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
                     {/* Card 1 */}
-                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
+                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-center md:items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
                         <div className="flex-shrink-0 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
                             <Check className="w-6 h-6 text-white" strokeWidth={2.5} />
                         </div>
@@ -55,7 +55,7 @@ export default function Withdrawal() {
                     </div>
 
                     {/* Card 2 */}
-                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
+                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-center md:items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
                         <div className="flex-shrink-0 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
                             <AlertCircle className="w-6 h-6 text-white" strokeWidth={2.5} />
                         </div>
@@ -70,7 +70,7 @@ export default function Withdrawal() {
                     </div>
 
                     {/* Card 3 */}
-                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
+                    <div className="bg-indigo-50/50 rounded-xl p-7 flex items-center md:items-start gap-5 hover:-translate-y-1 transition-transform duration-200">
                         <div className="flex-shrink-0 w-12 h-12 bg-indigo-500 rounded-full flex items-center justify-center">
                             <CreditCard className="w-6 h-6 text-white" strokeWidth={2.5} />
                         </div>

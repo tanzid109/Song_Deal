@@ -57,7 +57,7 @@ export default function WithdrawalTable() {
                             : "bg-red-500 text-white";
                 return (
                     <p
-                        className={`text-center w-1/2 mx-auto py-1 rounded-md font-medium capitalize ${color}`}
+                        className={`text-center px-2 md:w-1/2 mx-auto py-1 rounded-md font-medium capitalize ${color}`}
                     >
                         {status}
                     </p>
