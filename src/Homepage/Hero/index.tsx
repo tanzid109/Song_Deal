@@ -21,8 +21,8 @@ export function HeroSection() {
                                 Investable Assets.
                             </span>
                         </h1>
-                        <p className="md:w-2/3 text-gray-600 md:text-xl dark:text-gray-300 mx-auto md:mx-0">
-                            Songdeal helps artists monetize their work and investors discover new opportunities in the music industry.
+                        <p className="md:w-2/3 text-gray-600 md:text-xl dark:text-gray-300 mx-auto md:mx-0 leading-relaxed">
+                            <span className=" text-[#635BFF] font-bold tracking-widest">SongDeal</span> helps artists monetize their work and investors discover new opportunities in the music industry.
                         </p>
                     </div>
                     <div className="flex items-center justify-center md:justify-start gap-3 mt-4">
