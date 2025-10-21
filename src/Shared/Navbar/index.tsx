@@ -42,7 +42,7 @@ export default function Navbar() {
 
                 {/* Desktop Nav */}
                 <div className="">
-                    <NavigationMenu className="hidden  md:flex space-x-8">
+                    <NavigationMenu className="hidden  md:flex">
                         <NavigationMenuList>
                             {navLinks.map((link) => (
                                 <NavigationMenuItem key={link.href}>
