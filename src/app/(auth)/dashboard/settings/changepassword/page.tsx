@@ -1,9 +1,10 @@
+import PasswordForm from '@/dashboard/settings/PasswordForm';
 import React from 'react';
 
 const page = () => {
     return (
         <div>
-            Change Password
+            <PasswordForm/>
         </div>
     );
 };

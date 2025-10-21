@@ -57,7 +57,7 @@ export default function PerformanceChart() {
                 </div>
 
                 {/* Chart */}
-                <div className="w-full h-[250px] sm:h-[350px] lg:h-[442px]">
+                <div className="w-full h-[250px] sm:h-[350px] lg:h-[386px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart
                             data={data}

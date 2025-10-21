@@ -7,7 +7,7 @@ const CustomerCard = () => {
             <CardContent>
                 <p className="text-cyan-700 text-sm font-semibold mb-3">Customers</p>
                 <div className="flex items-baseline gap-3 mb-6">
-                    <p className="text-5xl font-bold text-cyan-900">58,558</p>
+                    <p className="text-4xl font-bold text-cyan-900">58,558</p>
                     <span className="text-red-600 text-lg font-semibold">-56%</span>
                 </div>
 

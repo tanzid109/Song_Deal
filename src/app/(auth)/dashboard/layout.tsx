@@ -18,9 +18,9 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                         <h3 className="font-semibold text-2xl">Overview</h3>
                     </div>
                     <div className="mr-10 my-1 h-[72px] w-[72px] rounded-full overflow-hidden">
-                        <Link href="/dashboard/profile">
+                        <Link href="/dashboard/settings/basic">
                             <Image
-                                src="/assets/image1.jpg"
+                                src="/assets/user1.jpg"
                                 width={72}
                                 height={72}
                                 alt="profile"
@@ -28,7 +28,6 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                             />
                         </Link>
                     </div>
-
                 </header>
                 <div className="bg-[#F4FAFD] flex flex-1 flex-col gap-4 p-4 pt-0">
                     {

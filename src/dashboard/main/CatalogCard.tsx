@@ -7,7 +7,7 @@ const CatalogCard = () => {
             <CardContent>
                 <p className="text-pink-700 text-sm font-semibold mb-3">Total Catalogs</p>
                 <div className="flex items-baseline gap-3 mb-6">
-                    <p className="text-5xl font-bold text-pink-900">38,618</p>
+                    <p className="text-4xl font-bold text-pink-900">38,618</p>
                     <span className="text-emerald-600 text-lg font-semibold">+15%</span>
                 </div>
 
