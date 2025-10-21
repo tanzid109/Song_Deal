@@ -4,7 +4,7 @@ import React from 'react';
 
 const WelcomeCard = () => {
     return (
-            <Card className="bg-gradient-to-br from-indigo-600 to-indigo-700 border-0 shadow-xl h-full">
+            <Card className="p-5 bg-gradient-to-br from-indigo-600 to-indigo-700 border-0 shadow-xl h-full">
                 <CardContent>
                     <div className="flex items-start gap-4">
                         <div className="bg-white rounded-2xl p-4 shadow-lg">

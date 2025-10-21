@@ -4,7 +4,7 @@ import React from 'react';
 const SalesCard = () => {
     return (
         <Card className="h-full border-0 shadow-lg bg-white">
-            <CardContent className="p-6">
+            <CardContent className="">
                 <h3 className="text-xl font-bold text-slate-900 mb-1">Sales Overview</h3>
                 <p className="text-sm text-slate-500 mb-8">Last 7 days</p>
 

@@ -7,10 +7,10 @@ import SalesCard from '@/dashboard/main/SalesCard';
 import WelcomeCard from '@/dashboard/main/WelcomeCard';
 import React from 'react';
 
-const page = () => {
+const Dashboard = () => {
     return (
-        <main className="p-3">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-6">
+        <main className="p-3 ">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-6 h-screen">
                 {/* Welcome section */}
                 <div className=" rounded-2xl md:col-span-2 md:row-span-2">
                     <WelcomeCard />
@@ -50,4 +50,4 @@ const page = () => {
     );
 };
 
-export default page;
+export default Dashboard;
