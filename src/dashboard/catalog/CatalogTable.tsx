@@ -12,8 +12,8 @@ import { useState, useMemo } from "react";
 import { data } from "@/Database/users";
 import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import { DataTable } from "@/Shared/Table/Table";
-import { Slider } from "@/components/ui/slider";
 import { Button } from "@/components/ui/button";
+import { Progress } from "@/components/ui/progress";
 
 type User = {
     id: string;
@@ -106,8 +106,8 @@ export default function CatalogTable() {
         {
             accessorKey: "id",
             header: () => <div className="text-center">Funding Progress</div>,
-            cell: () => (
-                <Slider defaultValue={[30]} className="text-indigo-500 w-1/2 mx-auto" />
+            cell: ({row}) => (
+                <Progress value={row.original.roi} className="text-indigo-500 w-1/2 mx-auto" />
             ),
         },
         {
@@ -159,7 +159,7 @@ export default function CatalogTable() {
         if (globalFilter) {
             const searchValue = globalFilter.toLowerCase();
             filtered = filtered.filter((user) =>
-                [user.catalog, user.email, user.userId?.toString(), user.status, user.date]
+                [user.catalog, user.email,user.artist,user.genre, user.userId?.toString(), user.status, user.date]
                     .some((field) => field?.toString().toLowerCase().includes(searchValue))
             );
         }

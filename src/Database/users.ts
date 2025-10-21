@@ -2,14 +2,14 @@ type User = {
     id: string
     photo?: string
     userId: number
-    catalog?: string // album name
+    catalog?: string 
     email: string
     date?: string
     time?: string
     status: "live" | "pending"
     genre: string
     artist: string
-    roi: number // percentage ROI
+    roi: number 
 }
 
 const photos = [
@@ -21,7 +21,6 @@ const photos = [
     "/assets/user5.jpg",
 ]
 
-// 🎧 Album names
 const catalogs = [
     "Midnight Dreams", "Echoes of Tomorrow", "City Lights", "Golden Hour",
     "Velvet Nights", "Neon Skyline", "Lost Frequencies", "Ocean Drive",
