@@ -1,11 +1,10 @@
-import { Card, CardContent } from '@/components/ui/card';
 import { TrendingUp } from 'lucide-react';
 import React from 'react';
 
 const WelcomeCard = () => {
     return (
-            <Card className="p-5 bg-gradient-to-br from-indigo-600 to-indigo-700 border-0 shadow-xl h-full">
-                <CardContent>
+        <main className="p-5 rounded-lg bg-gradient-to-br from-indigo-600 to-indigo-700 border-0 shadow-xl h-full">
+                <main>
                     <div className="flex items-start gap-4">
                         <div className="bg-white rounded-2xl p-4 shadow-lg">
                             <TrendingUp className="w-8 h-8 text-indigo-600" />
@@ -28,8 +27,8 @@ const WelcomeCard = () => {
                             <p className="text-emerald-300 text-sm font-medium">+5% this month</p>
                         </div>
                     </div>
-                </CardContent>
-            </Card>
+                </main>
+            </main>
     );
 };
 

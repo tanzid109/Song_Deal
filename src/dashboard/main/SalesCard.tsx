@@ -1,10 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
 
 const SalesCard = () => {
     return (
-        <Card className="h-full border-0 shadow-lg bg-white">
-            <CardContent className="">
+        <main className="p-5 rounded-lg border-0 shadow-lg bg-white">
+            <div className="">
                 <h3 className="text-xl font-bold text-slate-900 mb-1">Sales Overview</h3>
                 <p className="text-sm text-slate-500 mb-8">Last 7 days</p>
 
@@ -77,8 +76,8 @@ const SalesCard = () => {
                         <p className="text-xs font-semibold text-slate-600">0%</p>
                     </div>
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </main>
     );
 };
 

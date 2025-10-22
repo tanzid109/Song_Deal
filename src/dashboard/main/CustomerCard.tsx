@@ -1,10 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
 
 const CustomerCard = () => {
     return (
-        <Card className="h-full bg-gradient-to-br from-cyan-50 to-cyan-100 border-0 shadow-lg overflow-hidden relative">
-            <CardContent>
+        <main className="rounded-lg bg-gradient-to-br from-cyan-50 to-cyan-100 border-0 shadow-lg overflow-hidden relative p-5">
+            <div>
                 <p className="text-cyan-700 text-sm font-semibold mb-3">Customers</p>
                 <div className="flex items-baseline gap-3 mb-6">
                     <p className="text-4xl font-bold text-cyan-900">58,558</p>
@@ -26,8 +25,8 @@ const CustomerCard = () => {
                         strokeWidth="2"
                     />
                 </svg>
-            </CardContent>
-        </Card>
+            </div>
+        </main>
     );
 };
 

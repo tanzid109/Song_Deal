@@ -28,8 +28,8 @@ const data = [
 
 export default function PerformanceChart() {
     return (
-        <div className=" bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
-            <div className="w-full max-w-6xl bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
+        <div className="rounded-lg bg-gradient-to-br from-slate-50 to-blue-50 flex items-center justify-center">
+            <div className="w-full bg-white rounded-2xl shadow-lg p-4 sm:p-6 lg:p-8">
                 {/* Header */}
                 <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4 sm:gap-6">
                     <div className="flex items-center gap-4">
@@ -57,7 +57,7 @@ export default function PerformanceChart() {
                 </div>
 
                 {/* Chart */}
-                <div className="w-full h-[250px] sm:h-[350px] lg:h-[386px]">
+                <div className="w-full h-[250px] sm:h-[350px] lg:h-[385px]">
                     <ResponsiveContainer width="100%" height="100%">
                         <AreaChart
                             data={data}

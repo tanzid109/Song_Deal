@@ -10,43 +10,28 @@ import React from 'react';
 const Dashboard = () => {
     return (
         <main className="p-3 ">
-            <div className="grid grid-cols-1 gap-4 md:grid-cols-6 md:grid-rows-6 h-screen">
-                {/* Welcome section */}
-                <div className=" rounded-2xl md:col-span-2 md:row-span-2">
+            <div className="grid grid-cols-1 md:grid-cols-5 gap-4">
+                {/* Left Side - takes 2 columns */}
+                <div className="lg:col-span-2 flex flex-col gap-4">
                     <WelcomeCard />
-                </div>
 
-                {/* Customer  */}
-                <div className="rounded-2xl md:col-start-1 md:row-start-3 md:row-span-2">
-                    <CustomerCard />
+                    {/* Bottom section inside left side */}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                        <CustomerCard />
+                        <CatalogCard />
+                    </div>
                 </div>
-                {/* CatalogCard */}
-                <div className="rounded-2xl md:col-start-2 md:row-start-3 md:row-span-2">
-                    <CatalogCard />
-                </div>
-
-                {/* Performance chart */}
-                <div className="rounded-2xl md:col-span-4 md:row-span-4 md:col-start-3 md:row-start-1">
+                {/* Right Side - takes 3 columns */}
+                <div className="lg:col-span-3">
                     <PerformanceChart />
                 </div>
-
-                { /* Orders performance */}
-                <div className="rounded-2xl md:col-span-2 md:row-span-2 md:row-start-5">
-                    <PerformanceOrderCard />
-                </div>
-
-                {/* Performance line */}
-                <div className="rounded-2xl md:col-span-2 md:row-span-2 md:col-start-3 md:row-start-5">
-                    <PerformanceCartCard />
-                </div>
-
-                {/* Sales progress */}
-                <div className="rounded-2xl md:col-span-2 md:row-span-2 md:col-start-5 md:row-start-5">
-                    <SalesCard />
-                </div>
+            </div>
+            <div className='grid grid-cols-1 md:grid-cols-3 mt-4 gap-4'>
+                <PerformanceOrderCard />
+                <PerformanceCartCard />
+                <SalesCard />
             </div>
         </main>
-
     );
 };
 

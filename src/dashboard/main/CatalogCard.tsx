@@ -1,10 +1,9 @@
-import { Card, CardContent } from '@/components/ui/card';
 import React from 'react';
 
 const CatalogCard = () => {
     return (
-        <Card className="h-full bg-gradient-to-br from-pink-50 to-pink-100 border-0 shadow-lg">
-            <CardContent>
+        <main className="rounded-lg bg-gradient-to-br from-pink-50 to-pink-100 border-0 shadow-lg p-5">
+            <div>
                 <p className="text-pink-700 text-sm font-semibold mb-3">Total Catalogs</p>
                 <div className="flex items-baseline gap-3 mb-6">
                     <p className="text-4xl font-bold text-pink-900">38,618</p>
@@ -21,8 +20,8 @@ const CatalogCard = () => {
                         />
                     ))}
                 </div>
-            </CardContent>
-        </Card>
+            </div>
+        </main>
     );
 };
 
