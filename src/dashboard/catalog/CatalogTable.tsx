@@ -14,6 +14,7 @@ import { Search, ChevronRight, ChevronLeft } from "lucide-react";
 import { DataTable } from "@/Shared/Table/Table";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
+import CatalogView from "./CatalogView";
 
 type User = {
     id: string;
@@ -38,9 +39,21 @@ export default function CatalogTable() {
     const [statusFilter, setStatusFilter] = useState<string>("all");
     const [genreFilter, setGenreFilter] = useState<string>("all");
     const [artistFilter, setArtistFilter] = useState<string>("all");
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
     const handleDelete = (user: User) => {
         setUsers((prev) => prev.filter((u) => u.userId !== user.userId));
+    };
+
+    const handleView = (user: User) => {
+        setSelectedUser(user);
+        setIsModalOpen(true);
+    };
+
+    const closeModal = () => {
+        setIsModalOpen(false);
+        setSelectedUser(null);
     };
 
     const columns: ColumnDef<User>[] = [
@@ -106,7 +119,7 @@ export default function CatalogTable() {
         {
             accessorKey: "id",
             header: () => <div className="text-center">Funding Progress</div>,
-            cell: ({row}) => (
+            cell: ({ row }) => (
                 <Progress value={row.original.roi} className="text-indigo-500 w-1/2 mx-auto" />
             ),
         },
@@ -118,13 +131,14 @@ export default function CatalogTable() {
                 return (
                     <div className="flex items-center justify-center gap-4">
                         <button
-                            className="bg-[#FDD26833] px-4 py-2 rounded-md flex items-center justify-center text-[#ffab02] hover:bg-[#faad14bd] hover:text-black transition"
+                            className="bg-[#FDD26833] px-4 py-2 rounded-md flex items-center justify-center text-[#ffab02] hover:bg-[#faad14bd] hover:text-black transition cursor-pointer"
                             title="View"
+                            onClick={() => handleView(user)}
                         >
                             <p>View</p>
                         </button>
                         <button
-                            className="bg-[#FBD9D7] px-4 py-2 rounded-md flex items-center justify-center text-[#EB4335] hover:bg-[#eb4435ab] hover:text-black transition"
+                            className="bg-[#FBD9D7] px-4 py-2 rounded-md flex items-center justify-center text-[#EB4335] hover:bg-[#eb4435ab] hover:text-black transition cursor-pointer    "
                             title="Delete"
                             onClick={() => handleDelete(user)}
                         >
@@ -159,7 +173,7 @@ export default function CatalogTable() {
         if (globalFilter) {
             const searchValue = globalFilter.toLowerCase();
             filtered = filtered.filter((user) =>
-                [user.catalog, user.email,user.artist,user.genre, user.userId?.toString(), user.status, user.date]
+                [user.catalog, user.email, user.artist, user.genre, user.userId?.toString(), user.status, user.date]
                     .some((field) => field?.toString().toLowerCase().includes(searchValue))
             );
         }
@@ -260,12 +274,16 @@ export default function CatalogTable() {
                 </div>
             </div>
 
-
             {/* Table */}
             <DataTable
                 columns={columns}
                 data={table.getRowModel().rows.map((row) => row.original)}
             />
+
+            {/* Modal */}
+            {isModalOpen && selectedUser && (
+                <CatalogView user={selectedUser} onClose={closeModal} />
+            )}
 
             {/* Results */}
             <div className="mt-2 text-sm text-center text-gray-400">
@@ -366,7 +384,6 @@ export default function CatalogTable() {
                     </select>
                 </div>
             </div>
-
         </div>
     );
 }
