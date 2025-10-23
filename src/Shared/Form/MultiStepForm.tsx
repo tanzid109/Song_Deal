@@ -1,158 +1,649 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
-
-import { useState } from "react";
-import { useForm, FormProvider } from "react-hook-form";
-import { yupResolver } from "@hookform/resolvers/yup";
-import * as yup from "yup";
+import React, { useState } from "react";
+import { FormProvider, useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { Upload, Plus, PlusIcon } from "lucide-react";
+import {
+    FormControl,
+    FormField,
+    FormItem,
+    FormLabel,
+    FormMessage,
+} from "@/components/ui/form";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
-import { Progress } from "@/components/ui/progress";
-import { Badge } from "@/components/ui/badge";
-import Step1 from "./Step1";
-import Step2 from "./Step2";
-import Step3 from "./Step3";
-import Step4 from "./Step4";
 
-const schema = yup.object({
-    // Step 1
-    catalogTitle: yup.string().required("Catalog title is required"),
-    primaryArtist: yup.string().required("Primary artist is required"),
-    releaseYear: yup.string().required("Release year is required"),
-    genre: yup.string().required("Genre is required"),
-    language: yup.string().required("Language is required"),
-    shortDescription: yup.string().required("Description is required").max(500),
-
-    // Step 2 - Tracks
-    tracks: yup.array().of(
-        yup.object({
-            title: yup.string().required("Track title is required"),
-            duration: yup.string().required("Duration is required"),
-            isrc: yup.string(),
-            audioFile: yup.mixed(),
-        })
-    ).min(1, "At least one track is required"),
-
-    // Step 3 - Rights
-    rightsOwner: yup.string().required("Rights owner is required"),
-    royaltySplits: yup.array().of(
-        yup.object({
-            name: yup.string().required("Name is required"),
-            split: yup.number().required("Split is required").min(0).max(100),
-        })
-    ).test("total-split", "Total royalty split cannot exceed 100%", function (value) {
-        if (!value) return true;
-        const total = value.reduce((sum: number, split: any) => sum + (split.split || 0), 0);
-        return total <= 100;
-    }),
-
-    // Step 4
-    askingPrice: yup.number().required().min(0),
-    investmentGoal: yup.number().required().min(0),
-    listingDuration: yup.string().required(),
+// Schemas
+const step1Schema = z.object({
+    catalogTitle: z.string().min(1, "Catalog title is required"),
+    primaryArtist: z.string().min(1, "Primary artist is required"),
+    releaseYear: z
+        .string()
+        .min(4, "Release year must be 4 digits")
+        .max(4, "Release year must be 4 digits"),
+    genre: z.array(z.string()).min(1, "Select at least one genre"),
+    language: z.string().min(1, "Language is required"),
+    shortDescription: z
+        .string()
+        .max(500, "Description must be 500 characters or less")
+        .optional(),
 });
 
-type FormData = yup.InferType<typeof schema>;
+const step2Schema = z.object({
+    tracks: z
+        .array(
+            z.object({
+                title: z.string().min(1, "Track title is required"),
+                duration: z
+                    .string()
+                    .regex(/^\d{2}:\d{2}$/, "Duration must be in MM:SS format"),
+                isrc: z.string().optional(),
+            })
+        )
+        .min(1, "Add at least one track"),
+});
+
+const step3Schema = z.object({
+    rightsOwner: z.string().min(1, "Rights owner is required"),
+    royaltyHolders: z
+        .array(
+            z.object({
+                name: z.string().min(1, "Name is required"),
+                split: z.coerce.number().min(0).max(100),
+            })
+        )
+        .refine(
+            (holders) => holders.reduce((sum, h) => sum + h.split, 0) === 100,
+            { message: "Total royalty split must equal 100%" }
+        ),
+});
+
+const step4Schema = z.object({
+    masterRights: z.coerce.number().min(0).max(100),
+    publishingRights: z.coerce.number().min(0).max(100),
+    askingPrice: z.coerce.number().min(0),
+    investmentGoal: z.coerce.number().min(0),
+    listingDuration: z.coerce.number().min(1),
+});
+
+const genres = [
+    "Pop",
+    "Rock",
+    "Hip Hop",
+    "Electronic",
+    "Jazz",
+    "Classical",
+    "Country",
+    "R&B",
+];
+const languages = ["English", "Spanish", "French", "German"];
 
 export default function MultiStepForm() {
-    const methods = useForm<FormData>({
-        resolver: yupResolver(schema),
+    const [currentStep, setCurrentStep] = useState(1);
+    const [allFormData, setAllFormData] = useState({});
+    // const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+    const [tracks, setTracks] = useState([{ id: 1, title: "", duration: "", isrc: "" }]);
+    const [royaltyHolders, setRoyaltyHolders] = useState([
+        { id: 1, name: "John Doe", split: 50 },
+        { id: 2, name: "Jane Smith", split: 50 },
+    ]);
+
+    const schemaMap = [step1Schema, step2Schema, step3Schema, step4Schema];
+    const form = useForm({
+        resolver: zodResolver(schemaMap[currentStep - 1]),
         defaultValues: {
             catalogTitle: "",
             primaryArtist: "",
             releaseYear: "",
-            genre: "Pop",
+            genre: [],
             language: "English",
             shortDescription: "",
-            tracks: [{ title: "", duration: "", isrc: "", audioFile: null }],
+            tracks,
             rightsOwner: "",
-            royaltySplits: [{ name: "", split: 0 }],
+            royaltyHolders,
+            masterRights: 50,
+            publishingRights: 25,
             askingPrice: 10000,
             investmentGoal: 5000,
-            listingDuration: "30 days",
+            listingDuration: 30,
         },
     });
 
-    const [currentStep, setCurrentStep] = useState(1);
-    const totalSteps = 4;
+    const { formState, handleSubmit, setValue, } = form;
+    const { isSubmitting } = formState;
+    const progress = (currentStep / 4) * 100;
 
-    const progress = (currentStep / totalSteps) * 100;
-
-    const handleNext = async () => {
-        const isValid = await methods.trigger(); // Trigger validation for all fields
-        if (isValid) {
-            setCurrentStep((prev) => Math.min(prev + 1, totalSteps)); // Ensure it doesn't exceed totalSteps
+    const onSubmit = (data: any) => {
+        setAllFormData({ ...allFormData, ...data });
+        if (currentStep < 4) {
+            setCurrentStep(currentStep + 1);
         } else {
-            console.log("Validation errors:", methods.formState.errors); // Debug validation errors
+            alert("Form submitted successfully!");
+            console.log("Complete form data:", { ...allFormData, ...data });
         }
     };
 
-    const handleBack = () => {
-        setCurrentStep((prev) => Math.max(prev - 1, 1)); // Ensure it doesn't go below 1
+    // const handleGenreToggle = (genre: string) => {
+    //     const newGenres = selectedGenres.includes(genre)
+    //         ? selectedGenres.filter((g) => g !== genre)
+    //         : [...selectedGenres, genre];
+    //     setSelectedGenres(newGenres);
+    //     setValue("genre", newGenres);
+    // };
+
+    const addTrack = () => {
+        const newTracks = [...tracks, { id: Date.now(), title: "", duration: "", isrc: "" }];
+        setTracks(newTracks);
+        setValue("tracks", newTracks);
     };
 
-    const handleSubmit = (data: FormData) => {
-        console.log("Form submitted:", data);
-        // Handle form submission
+    const removeTrack = (id: number) => {
+        if (tracks.length > 1) {
+            const newTracks = tracks.filter((t) => t.id !== id);
+            setTracks(newTracks);
+            setValue("tracks", newTracks);
+        }
     };
+
+    const updateTrack = (id: number, field: string, value: string) => {
+        const newTracks = tracks.map((t) => (t.id === id ? { ...t, [field]: value } : t));
+        setTracks(newTracks);
+        setValue("tracks", newTracks);
+    };
+
+    const addRoyaltyHolder = () => {
+        const newHolders = [...royaltyHolders, { id: Date.now(), name: "", split: 0 }];
+        setRoyaltyHolders(newHolders);
+        setValue("royaltyHolders", newHolders);
+    };
+
+    const removeRoyaltyHolder = (id: number) => {
+        if (royaltyHolders.length > 1) {
+            const newHolders = royaltyHolders.filter((h) => h.id !== id);
+            setRoyaltyHolders(newHolders);
+            setValue("royaltyHolders", newHolders);
+        }
+    };
+
+    const updateRoyaltyHolder = (id: number, field: string, value: string | number) => {
+        const newHolders = royaltyHolders.map((h) =>
+            h.id === id ? { ...h, [field]: field === "split" ? Number(value) : value } : h
+        );
+        setRoyaltyHolders(newHolders);
+        setValue("royaltyHolders", newHolders);
+    };
+
+    const totalRoyaltySplit = royaltyHolders.reduce((sum, h) => sum + (h.split || 0), 0);
 
     return (
-        <div className="container mx-auto p-6 max-w-4xl">
-            <FormProvider {...methods}>
-                <form onSubmit={methods.handleSubmit(handleSubmit)} className="space-y-8">
-                    <div className="space-y-4">
-                        <div className="flex items-center justify-between">
-                            <h1 className="text-3xl font-bold tracking-tight">Upload New Catalog</h1>
-                            <Badge variant="secondary">Step {currentStep}/{totalSteps}</Badge>
-                        </div>
-
-                        <Progress value={progress} className="h-2" />
-
-                        <div className="flex gap-2">
-                            {Array.from({ length: totalSteps }, (_, i) => (
-                                <Button
-                                    key={i + 1}
-                                    type="button"
-                                    variant={currentStep === i + 1 ? "default" : "outline"}
-                                    size="sm"
-                                    className="flex-1"
-                                    onClick={() => setCurrentStep(i + 1)}
-                                >
-                                    Step {i + 1}
-                                </Button>
-                            ))}
-                        </div>
+        <div className="min-h-screen bg-gray-50 p-8">
+            <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-8">
+                {/* Progress bar */}
+                <div className="mb-8">
+                    <div className="flex justify-between items-center mb-2">
+                        <span className="text-sm font-medium text-gray-700">
+                            Step {currentStep}/4
+                        </span>
+                        <span className="text-sm font-medium text-gray-700">
+                            {Math.round(progress)}%
+                        </span>
                     </div>
+                    <div className="w-full bg-gray-200 rounded-full h-2">
+                        <div
+                            className="bg-indigo-600 h-2 rounded-full transition-all duration-300"
+                            style={{ width: `${progress}%` }}
+                        />
+                    </div>
+                </div>
+                <FormProvider {...form}>
+                    {/* Form */}
+                    <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+                        {/* Step content (keep your original JSX structure here) */}
 
-                    <Card>
-                        <CardContent className="p-0 pt-6">
-                            {currentStep === 1 && <Step1 />}
-                            {currentStep === 2 && <Step2 />}
-                            {currentStep === 3 && <Step3 />}
-                            {currentStep === 4 && <Step4 />}
-                        </CardContent>
-                    </Card>
 
-                    <div className="flex justify-between">
-                        <Button
-                            type="button"
-                            variant="outline"
-                            onClick={handleBack}
-                            disabled={currentStep === 1}
-                        >
-                            Back
-                        </Button>
+                        {/* Step 1: Basic Information */}
+                        {currentStep === 1 && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">Upload New Catalog</h2>
+                                <p className="text-gray-600 mb-8">Sitepi Basic information Provide the essential ortaite for your catalog</p>
 
-                        {currentStep === totalSteps ? (
-                            <Button type="submit">Submit for Review</Button>
-                        ) : (
-                            <Button type="button" onClick={handleNext}>
-                                Next
-                            </Button>
+                                <div className="space-y-6">
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <FormField
+                                            control={form.control}
+                                            name="catalogTitle"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Catalog Title</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} placeholder="Enter catalog title" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                        <FormField
+                                            control={form.control}
+                                            name="primaryArtist"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Primary Artist</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} placeholder="Enter primary artist" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                    </div>
+
+                                    <div className="grid grid-cols-2 gap-6">
+                                        <FormField
+                                            control={form.control}
+                                            name="releaseYear"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Release Year</FormLabel>
+                                                    <FormControl>
+                                                        <Input {...field} placeholder="YYYY" />
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+
+                                        <FormField
+                                            control={form.control}
+                                            name="genre"
+                                            render={({ field }) => (
+                                                <FormItem>
+                                                    <FormLabel>Genre</FormLabel>
+                                                    <FormControl>
+                                                        <select
+                                                            multiple
+                                                            value={field.value}
+                                                            onChange={(e) => {
+                                                                const selected = Array.from(e.target.selectedOptions, (option) => option.value);
+                                                                field.onChange(selected);
+                                                            }}
+                                                        >
+                                                            {genres.map((genre) => (
+                                                                <option key={genre} value={genre}>
+                                                                    {genre}
+                                                                </option>
+                                                            ))}
+                                                        </select>
+
+                                                    </FormControl>
+                                                    <FormMessage />
+                                                </FormItem>
+                                            )}
+                                        />
+                                    </div>
+                                    <FormField
+                                        control={form.control}
+                                        name="language"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Language</FormLabel>
+                                                <FormControl>
+                                                    <select
+                                                        {...field}
+                                                        className="w-1/4 shadow rounded-md p-2"
+                                                    >
+                                                        <option value="">Select a genre</option>
+                                                        {languages.map((lan) => (
+                                                            <option key={lan} value={lan}>
+                                                                {lan}
+                                                            </option>
+                                                        ))}
+                                                    </select>
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="shortDescription"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Short Description</FormLabel>
+                                                <FormControl>
+                                                    <Textarea {...field}
+                                                        rows={4}
+                                                        placeholder="Provide a brief description of your catalog.." />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                </div>
+                            </div>
                         )}
-                    </div>
-                </form>
-            </FormProvider>
+
+                        {/* Step 2: Add Tracks */}
+                        {currentStep === 2 && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-2">Add Your Tracks</h2>
+                                <p className="text-gray-600 mb-8">
+                                    Provide the essential information for your catalog.
+                                </p>
+
+                                <div className="space-y-6">
+                                    {tracks.map((track, index) => (
+                                        <div key={track.id} className="border border-gray-200 rounded-lg p-6">
+                                            <div className="grid grid-cols-3 gap-4 mb-4">
+                                                {/* Track Title */}
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`tracks.${index}.title`}
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Track Title</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    {...field}
+                                                                    value={track.title}
+                                                                    onChange={(e) =>
+                                                                        updateTrack(track.id, "title", e.target.value)
+                                                                    }
+                                                                    placeholder={index === 0 ? "Midnight Bloom" : ""}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+
+                                                {/* Duration */}
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`tracks.${index}.duration`}
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>Duration</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    {...field}
+                                                                    value={track.duration}
+                                                                    onChange={(e) =>
+                                                                        updateTrack(track.id, "duration", e.target.value)
+                                                                    }
+                                                                    placeholder={index === 0 ? "03:45" : "MM:SS"}
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+
+                                                {/* ISRC */}
+                                                <FormField
+                                                    control={form.control}
+                                                    name={`tracks.${index}.isrc`}
+                                                    render={({ field }) => (
+                                                        <FormItem>
+                                                            <FormLabel>ISRC</FormLabel>
+                                                            <FormControl>
+                                                                <Input
+                                                                    {...field}
+                                                                    value={track.isrc}
+                                                                    onChange={(e) =>
+                                                                        updateTrack(track.id, "isrc", e.target.value)
+                                                                    }
+                                                                    placeholder={
+                                                                        index === 0 ? "US-S1Z-23-12345" : "XX-XXX-00-00000"
+                                                                    }
+                                                                />
+                                                            </FormControl>
+                                                            <FormMessage />
+                                                        </FormItem>
+                                                    )}
+                                                />
+                                            </div>
+
+                                            {/* Upload Section */}
+                                            <div>
+                                                <FormLabel>Upload Sample</FormLabel>
+                                                <div className="border-2 border-dashed border-gray-300 rounded-lg p-8 text-center hover:border-indigo-500 transition-colors cursor-pointer mt-3">
+                                                    <Upload className="mx-auto h-8 w-8 text-gray-400 mb-2" />
+                                                    <p className="text-sm text-gray-600">Upload Audio</p>
+                                                    <p className="text-xs text-gray-500">
+                                                        Please upload square audio, size less than 500MB.
+                                                    </p>
+                                                </div>
+                                            </div>
+
+                                            {tracks.length > 1 && (
+                                                <Button
+                                                    variant="secondary"
+                                                    type="button"
+                                                    onClick={() => removeTrack(track.id)}
+                                                    className="mt-2"
+                                                >
+                                                    Remove Track
+                                                </Button>
+                                            )}
+                                        </div>
+                                    ))}
+
+                                    {/* Add Button */}
+                                    <Button
+                                        type="button"
+                                        onClick={addTrack}
+                                        className="w-full"
+                                    >
+                                        <PlusIcon className="size-5"/> Add Another Track
+                                    </Button>
+                                </div>
+                            </div>
+                        )}
+
+
+                        {/* Step 3: Rights & Documents */}
+                        {currentStep === 3 && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-8">Rights & Documents</h2>
+
+                                <div className="space-y-6">
+
+                                    <FormField
+                                        control={form.control}
+                                        name="rightsOwner"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel>Rights Owner</FormLabel>
+                                                <FormControl>
+                                                    <Input {...field}
+                                                        placeholder="Enter the name of the rights owner" />
+                                                </FormControl>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+                                    <div>
+                                        <FormLabel>Royalty Split</FormLabel>
+                                        <p className="text-sm text-gray-600 mb-4">Add royalty holders and their respective percentage splits. The total must not exceed 100%</p>
+
+                                        <div className="border border-gray-200 rounded-lg overflow-hidden">
+                                            <table className="w-full">
+                                                <thead className="bg-gray-50">
+                                                    <tr>
+                                                        <th className="px-6 py-3 text-left text-sm font-medium text-gray-900">Name</th>
+                                                        <th className="px-6 py-3 text-left text-sm font-medium text-gray-900">Royalty Split (%)</th>
+                                                        <th className="px-6 py-3"></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-gray-200">
+                                                    {royaltyHolders.map((holder) => (
+                                                        <tr key={holder.id}>
+                                                            <td className="px-6 py-4">
+                                                                <Input
+                                                                    value={holder.name}
+                                                                    onChange={(e) => updateRoyaltyHolder(holder.id, 'name', e.target.value)}
+                                                                    placeholder="Enter name"
+                                                                />
+                                                            </td>
+                                                            <td className="px-6 py-4">
+                                                                <Input
+                                                                    type="number"
+                                                                    value={holder.split}
+                                                                    onChange={(e) => updateRoyaltyHolder(holder.id, 'split', e.target.value)}
+                                                                    min="0"
+                                                                    max="100"
+                                                                />
+                                                            </td>
+                                                            <td className="px-6 py-4 text-right">
+                                                                {royaltyHolders.length > 1 && (
+                                                                    <button
+                                                                        type="button"
+                                                                        onClick={() => removeRoyaltyHolder(holder.id)}
+                                                                        className="text-red-600 hover:text-red-700 text-sm"
+                                                                    >
+                                                                        Remove
+                                                                    </button>
+                                                                )}
+                                                            </td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        {totalRoyaltySplit !== 100 && (
+                                            <div className="mt-4 bg-red-50 border border-red-200 rounded-md p-3">
+                                                <p className="text-sm text-red-800">Total royalty split cannot exceed 100%. Current total: {totalRoyaltySplit}%</p>
+                                            </div>
+                                        )}
+                                        <FormMessage />
+
+                                        <Button
+                                            type="button"
+                                            variant="secondary"
+                                            onClick={addRoyaltyHolder}
+                                            className="mt-3"
+                                        >
+                                            <Plus className="h-4 w-4" />
+                                            Add Another
+                                        </Button>
+                                    </div>
+
+                                    <div>
+                                        <FormLabel>Legal Documents</FormLabel>
+                                        <p className="text-sm text-gray-600 mb-4">Upload contracts, proof of ownership, or other relevant legal documents (PDF format)</p>
+
+                                        <div className="border-2 border-dashed border-gray-300 rounded-lg p-12 text-center hover:border-indigo-500 transition-colors cursor-pointer">
+                                            <Upload className="mx-auto h-12 w-12 text-gray-400 mb-4" />
+                                            <p className="text-sm text-gray-600 mb-1">Drag & drop your files here, or browse</p>
+                                            <p className="text-xs text-gray-500">PDF Files only, up to 100MB</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Step 4: Preview & Submit */}
+                        {currentStep === 4 && (
+                            <div>
+                                <h2 className="text-2xl font-bold text-gray-900 mb-8">Preview & Submit</h2>
+
+                                <div className="grid grid-cols-2 gap-8">
+                                    <div>
+                                        <div className="bg-black rounded-lg aspect-square flex items-center justify-center mb-4">
+                                            <div className="text-center text-white">
+                                                <div className="text-6xl mb-4">♪</div>
+                                                <p className="text-sm">Album Cover Preview</p>
+                                            </div>
+                                        </div>
+                                        <h3 className="text-xl font-bold text-gray-900">Album Name 
+                                            <span className="mr-2"> :  {String(form.watch('catalogTitle') || 0).toLocaleString()}</span>
+                                        </h3>
+                                        <p className="text-gray-600">Artist Name 
+                                            : {String(form.watch('primaryArtist') || 0).toLocaleString()}
+                                        </p>
+                                    </div>
+
+                                    <div className="space-y-6">
+                                        <div>
+                                            <h3 className="font-semibold text-gray-900 mb-3">Tracks</h3>
+                                            <div className="space-y-2">
+                                                {tracks.map((track, index) => (
+                                                    <div key={track.id} className="flex justify-between text-sm">
+                                                        <span className="text-gray-700">{index + 1}. {track.title || 'Untitled'}</span>
+                                                        <span className="text-gray-500">{track.duration || '0:00'}</span>
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="font-semibold text-gray-900 mb-3">Rights Information</h3>
+                                            <div className="grid grid-cols-2 gap-4">
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Master Rights</p>
+                                                    <p className="font-semibold text-gray-900">${Number(form.watch('askingPrice') || 0).toLocaleString()} %</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Publishing Rights</p>
+                                                    <p className="font-semibold text-gray-900">${Number(form.watch('masterRights') || 0).toLocaleString()}
+                                                        %</p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div>
+                                            <h3 className="font-semibold text-gray-900 mb-3">Listing Details</h3>
+                                            <div className="grid grid-cols-3 gap-4">
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Asking Price</p>
+                                                    <p className="font-semibold text-gray-900">${form.watch('askingPrice')?.toLocaleString()}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Investment Goal</p>
+                                                    <p className="font-semibold text-gray-900">${form.watch('investmentGoal')?.toLocaleString()}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-sm text-gray-600">Listing Duration</p>
+                                                    <p className="font-semibold text-gray-900">${Number(form.watch('listingDuration') || 0).toLocaleString()} days</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )}
+
+                        {/* Navigation Buttons */}
+                        <div className="flex justify-between mt-8 pt-6 border-t border-gray-200">
+                            <Button
+                                type="button"
+                                variant="outline"
+                                onClick={() =>
+                                    currentStep > 1 ? setCurrentStep(currentStep - 1) : null
+                                }
+                                disabled={currentStep === 1}
+                                className="disabled:opacity-50 disabled:cursor-not-allowed"
+                            >
+                                Back
+                            </Button>
+                            <Button type="submit" disabled={isSubmitting}>
+                                {isSubmitting
+                                    ? "Processing..."
+                                    : currentStep === 4
+                                        ? "Submit for Review"
+                                        : "Next"}
+                            </Button>
+                        </div>
+                    </form>
+                </FormProvider>
+
+            </div>
         </div>
     );
 }
