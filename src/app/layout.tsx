@@ -18,7 +18,7 @@ const quicksand = Quicksand({
 
 
 export const metadata: Metadata = {
-    title: "Edgewater Health Dashboard",
+    title: "SongDeal Dashboard",
     description: "Created by Tanzid",
 };
 
