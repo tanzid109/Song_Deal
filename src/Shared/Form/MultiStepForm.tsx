@@ -3,7 +3,6 @@
 import React, { useState } from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Upload, Plus, PlusIcon } from "lucide-react";
 import {
     FormControl,
@@ -15,59 +14,11 @@ import {
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
-
-// Schemas
-const step1Schema = z.object({
-    catalogTitle: z.string().min(1, "Catalog title is required"),
-    primaryArtist: z.string().min(1, "Primary artist is required"),
-    releaseYear: z
-        .string()
-        .min(4, "Release year must be 4 digits")
-        .max(4, "Release year must be 4 digits"),
-    genre: z.array(z.string()).min(1, "Select at least one genre"),
-    language: z.string().min(1, "Language is required"),
-    shortDescription: z
-        .string()
-        .max(500, "Description must be 500 characters or less")
-        .optional(),
-});
-
-const step2Schema = z.object({
-    tracks: z
-        .array(
-            z.object({
-                title: z.string().min(1, "Track title is required"),
-                duration: z
-                    .string()
-                    .regex(/^\d{2}:\d{2}$/, "Duration must be in MM:SS format"),
-                isrc: z.string().optional(),
-            })
-        )
-        .min(1, "Add at least one track"),
-});
-
-const step3Schema = z.object({
-    rightsOwner: z.string().min(1, "Rights owner is required"),
-    royaltyHolders: z
-        .array(
-            z.object({
-                name: z.string().min(1, "Name is required"),
-                split: z.coerce.number().min(0).max(100),
-            })
-        )
-        .refine(
-            (holders) => holders.reduce((sum, h) => sum + h.split, 0) === 100,
-            { message: "Total royalty split must equal 100%" }
-        ),
-});
-
-const step4Schema = z.object({
-    masterRights: z.coerce.number().min(0).max(100),
-    publishingRights: z.coerce.number().min(0).max(100),
-    askingPrice: z.coerce.number().min(0),
-    investmentGoal: z.coerce.number().min(0),
-    listingDuration: z.coerce.number().min(1),
-});
+import { step1Schema } from "./step1Schema";
+import { step2Schema } from "./step2Schema";
+import { step3Schema } from "./step3Schema";
+import { step4Schema } from "./step4Schema";
+import { toast } from "sonner";
 
 const genres = [
     "Pop",
@@ -121,18 +72,12 @@ export default function MultiStepForm() {
         if (currentStep < 4) {
             setCurrentStep(currentStep + 1);
         } else {
-            alert("Form submitted successfully!");
+            toast.success("Form submitted successfully!");
             console.log("Complete form data:", { ...allFormData, ...data });
+            form.reset();
+            setCurrentStep(1);
         }
     };
-
-    // const handleGenreToggle = (genre: string) => {
-    //     const newGenres = selectedGenres.includes(genre)
-    //         ? selectedGenres.filter((g) => g !== genre)
-    //         : [...selectedGenres, genre];
-    //     setSelectedGenres(newGenres);
-    //     setValue("genre", newGenres);
-    // };
 
     const addTrack = () => {
         const newTracks = [...tracks, { id: Date.now(), title: "", duration: "", isrc: "" }];
@@ -201,8 +146,6 @@ export default function MultiStepForm() {
                 <FormProvider {...form}>
                     {/* Form */}
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-                        {/* Step content (keep your original JSX structure here) */}
-
 
                         {/* Step 1: Basic Information */}
                         {currentStep === 1 && (
@@ -445,7 +388,6 @@ export default function MultiStepForm() {
                             </div>
                         )}
 
-
                         {/* Step 3: Rights & Documents */}
                         {currentStep === 3 && (
                             <div>
@@ -642,7 +584,6 @@ export default function MultiStepForm() {
                         </div>
                     </form>
                 </FormProvider>
-
             </div>
         </div>
     );

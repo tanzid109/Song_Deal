@@ -4,6 +4,7 @@ import {
     SidebarProvider,
     SidebarTrigger,
 } from "@/components/ui/sidebar"
+import { Toaster } from "@/components/ui/sonner"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -35,6 +36,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                     }
                 </div>
             </SidebarInset>
+            <Toaster position="top-center"/>
         </SidebarProvider>
     )
 }
