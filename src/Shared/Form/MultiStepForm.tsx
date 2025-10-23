@@ -124,7 +124,7 @@ export default function MultiStepForm() {
     const totalRoyaltySplit = royaltyHolders.reduce((sum, h) => sum + (h.split || 0), 0);
 
     return (
-        <div className="min-h-screen bg-gray-50 p-8">
+        <div className="min-h-screen bg-gray-50 md:p-8 mt-5">
             <div className="max-w-5xl mx-auto bg-white rounded-lg shadow-sm p-8">
                 {/* Progress bar */}
                 <div className="mb-8">
@@ -154,7 +154,8 @@ export default function MultiStepForm() {
                                 <p className="text-gray-600 mb-8">Sitepi Basic information Provide the essential ortaite for your catalog</p>
 
                                 <div className="space-y-6">
-                                    <div className="grid grid-cols-2 gap-6">
+                                    {/* Row 1: Catalog Title & Primary Artist */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <FormField
                                             control={form.control}
                                             name="catalogTitle"
@@ -181,10 +182,10 @@ export default function MultiStepForm() {
                                                 </FormItem>
                                             )}
                                         />
-
                                     </div>
 
-                                    <div className="grid grid-cols-2 gap-6">
+                                    {/* Row 2: Release Year & Genre */}
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                         <FormField
                                             control={form.control}
                                             name="releaseYear"
@@ -198,7 +199,6 @@ export default function MultiStepForm() {
                                                 </FormItem>
                                             )}
                                         />
-
                                         <FormField
                                             control={form.control}
                                             name="genre"
@@ -208,6 +208,7 @@ export default function MultiStepForm() {
                                                     <FormControl>
                                                         <select
                                                             multiple
+                                                            className="w-full p-2.5 border border-gray-300 rounded-md shadow-sm bg-white text-gray-900 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                                             value={field.value}
                                                             onChange={(e) => {
                                                                 const selected = Array.from(e.target.selectedOptions, (option) => option.value);
@@ -220,13 +221,14 @@ export default function MultiStepForm() {
                                                                 </option>
                                                             ))}
                                                         </select>
-
                                                     </FormControl>
                                                     <FormMessage />
                                                 </FormItem>
                                             )}
                                         />
                                     </div>
+
+                                    {/* Row 3: Language */}
                                     <FormField
                                         control={form.control}
                                         name="language"
@@ -236,9 +238,9 @@ export default function MultiStepForm() {
                                                 <FormControl>
                                                     <select
                                                         {...field}
-                                                        className="w-1/4 shadow rounded-md p-2"
+                                                        className="w-full md:w-1/4 p-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
                                                     >
-                                                        <option value="">Select a genre</option>
+                                                        <option value="">Select a language</option>
                                                         {languages.map((lan) => (
                                                             <option key={lan} value={lan}>
                                                                 {lan}
@@ -251,6 +253,7 @@ export default function MultiStepForm() {
                                         )}
                                     />
 
+                                    {/* Row 4: Short Description */}
                                     <FormField
                                         control={form.control}
                                         name="shortDescription"
@@ -258,15 +261,19 @@ export default function MultiStepForm() {
                                             <FormItem>
                                                 <FormLabel>Short Description</FormLabel>
                                                 <FormControl>
-                                                    <Textarea {...field}
+                                                    <Textarea
+                                                        {...field}
                                                         rows={4}
-                                                        placeholder="Provide a brief description of your catalog.." />
+                                                        className="w-full border border-gray-300 rounded-md p-2 shadow-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-indigo-500"
+                                                        placeholder="Provide a brief description of your catalog.."
+                                                    />
                                                 </FormControl>
                                                 <FormMessage />
                                             </FormItem>
                                         )}
                                     />
                                 </div>
+
                             </div>
                         )}
 
@@ -281,7 +288,7 @@ export default function MultiStepForm() {
                                 <div className="space-y-6">
                                     {tracks.map((track, index) => (
                                         <div key={track.id} className="border border-gray-200 rounded-lg p-6">
-                                            <div className="grid grid-cols-3 gap-4 mb-4">
+                                            <div className="grid md:grid-cols-3 gap-4 mb-4">
                                                 {/* Track Title */}
                                                 <FormField
                                                     control={form.control}
@@ -382,7 +389,7 @@ export default function MultiStepForm() {
                                         onClick={addTrack}
                                         className="w-full"
                                     >
-                                        <PlusIcon className="size-5"/> Add Another Track
+                                        <PlusIcon className="size-5" /> Add Another Track
                                     </Button>
                                 </div>
                             </div>
@@ -411,51 +418,72 @@ export default function MultiStepForm() {
                                     />
                                     <div>
                                         <FormLabel>Royalty Split</FormLabel>
-                                        <p className="text-sm text-gray-600 mb-4">Add royalty holders and their respective percentage splits. The total must not exceed 100%</p>
+                                        <p className="text-sm text-gray-600 mb-4 my-3">Add royalty holders and their respective percentage splits. The total must not exceed 100%</p>
 
-                                        <div className="border border-gray-200 rounded-lg overflow-hidden">
-                                            <table className="w-full">
-                                                <thead className="bg-gray-50">
-                                                    <tr>
-                                                        <th className="px-6 py-3 text-left text-sm font-medium text-gray-900">Name</th>
-                                                        <th className="px-6 py-3 text-left text-sm font-medium text-gray-900">Royalty Split (%)</th>
-                                                        <th className="px-6 py-3"></th>
-                                                    </tr>
-                                                </thead>
-                                                <tbody className="divide-y divide-gray-200">
-                                                    {royaltyHolders.map((holder) => (
-                                                        <tr key={holder.id}>
-                                                            <td className="px-6 py-4">
-                                                                <Input
-                                                                    value={holder.name}
-                                                                    onChange={(e) => updateRoyaltyHolder(holder.id, 'name', e.target.value)}
-                                                                    placeholder="Enter name"
-                                                                />
-                                                            </td>
-                                                            <td className="px-6 py-4">
-                                                                <Input
-                                                                    type="number"
-                                                                    value={holder.split}
-                                                                    onChange={(e) => updateRoyaltyHolder(holder.id, 'split', e.target.value)}
-                                                                    min="0"
-                                                                    max="100"
-                                                                />
-                                                            </td>
-                                                            <td className="px-6 py-4 text-right">
-                                                                {royaltyHolders.length > 1 && (
-                                                                    <button
-                                                                        type="button"
-                                                                        onClick={() => removeRoyaltyHolder(holder.id)}
-                                                                        className="text-red-600 hover:text-red-700 text-sm"
-                                                                    >
-                                                                        Remove
-                                                                    </button>
-                                                                )}
-                                                            </td>
+                                        <div className="md:border md:border-gray-200 md:rounded-lg overflow-hidden">
+                                            <div className="overflow-x-auto">
+                                                <table className="min-w-full text-sm">
+                                                    <thead className="bg-gray-50 hidden md:table-header-group">
+                                                        <tr>
+                                                            <th className="px-6 py-3 text-left font-medium text-gray-900">Name</th>
+                                                            <th className="px-6 py-3 text-left font-medium text-gray-900">
+                                                                Royalty Split (%)
+                                                            </th>
+                                                            <th className="px-6 py-3"></th>
                                                         </tr>
-                                                    ))}
-                                                </tbody>
-                                            </table>
+                                                    </thead>
+
+                                                    <tbody className="divide-y divide-gray-200">
+                                                        {royaltyHolders.map((holder) => (
+                                                            <tr
+                                                                key={holder.id}
+                                                                className="block md:table-row border md:border-0 rounded-lg md:rounded-none mb-4 md:mb-0 p-4 md:p-0"
+                                                            >
+                                                                {/* Name */}
+                                                                <td className="block md:table-cell px-4 py-2 md:px-6 md:py-4">
+                                                                    <div className="md:hidden text-xs text-gray-500 mb-1">Name</div>
+                                                                    <Input
+                                                                        value={holder.name}
+                                                                        onChange={(e) =>
+                                                                            updateRoyaltyHolder(holder.id, "name", e.target.value)
+                                                                        }
+                                                                        placeholder="Enter name"
+                                                                    />
+                                                                </td>
+
+                                                                {/* Royalty Split */}
+                                                                <td className="block md:table-cell px-4 py-2 md:px-6 md:py-4">
+                                                                    <div className="md:hidden text-xs text-gray-500 mb-1">
+                                                                        Royalty Split (%)
+                                                                    </div>
+                                                                    <Input
+                                                                        type="number"
+                                                                        value={holder.split}
+                                                                        onChange={(e) =>
+                                                                            updateRoyaltyHolder(holder.id, "split", e.target.value)
+                                                                        }
+                                                                        min="0"
+                                                                        max="100"
+                                                                    />
+                                                                </td>
+
+                                                                {/* Remove Button */}
+                                                                <td className="block md:table-cell text-right px-4 py-2 md:px-6 md:py-4">
+                                                                    {royaltyHolders.length > 1 && (
+                                                                        <button
+                                                                            type="button"
+                                                                            onClick={() => removeRoyaltyHolder(holder.id)}
+                                                                            className="text-red-600 hover:text-red-700 text-sm"
+                                                                        >
+                                                                            Remove
+                                                                        </button>
+                                                                    )}
+                                                                </td>
+                                                            </tr>
+                                                        ))}
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
 
                                         {totalRoyaltySplit !== 100 && (
@@ -495,28 +523,35 @@ export default function MultiStepForm() {
                             <div>
                                 <h2 className="text-2xl font-bold text-gray-900 mb-8">Preview & Submit</h2>
 
-                                <div className="grid grid-cols-2 gap-8">
-                                    <div>
-                                        <div className="bg-black rounded-lg aspect-square flex items-center justify-center mb-4">
+                                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    {/* Album Preview */}
+                                    <div className="flex flex-col items-center md:items-start">
+                                        <div className="bg-black rounded-lg aspect-square w-full max-w-xs flex items-center justify-center mb-4">
                                             <div className="text-center text-white">
                                                 <div className="text-6xl mb-4">♪</div>
                                                 <p className="text-sm">Album Cover Preview</p>
                                             </div>
                                         </div>
-                                        <h3 className="text-xl font-bold text-gray-900">Album Name 
-                                            <span className="mr-2"> :  {String(form.watch('catalogTitle') || 0).toLocaleString()}</span>
+                                        <h3 className="text-xl font-bold text-gray-900 text-center md:text-left">
+                                            Album Name:
+                                            <span className="ml-2">{String(form.watch('catalogTitle') || 'Untitled')}</span>
                                         </h3>
-                                        <p className="text-gray-600">Artist Name 
-                                            : {String(form.watch('primaryArtist') || 0).toLocaleString()}
+                                        <p className="text-gray-600 text-center md:text-left">
+                                            Artist Name: {String(form.watch('primaryArtist') || 'Unknown')}
                                         </p>
                                     </div>
 
+                                    {/* Tracks & Details */}
                                     <div className="space-y-6">
+                                        {/* Tracks */}
                                         <div>
                                             <h3 className="font-semibold text-gray-900 mb-3">Tracks</h3>
                                             <div className="space-y-2">
                                                 {tracks.map((track, index) => (
-                                                    <div key={track.id} className="flex justify-between text-sm">
+                                                    <div
+                                                        key={track.id}
+                                                        className="flex justify-between text-sm bg-gray-50 px-3 py-2 rounded"
+                                                    >
                                                         <span className="text-gray-700">{index + 1}. {track.title || 'Untitled'}</span>
                                                         <span className="text-gray-500">{track.duration || '0:00'}</span>
                                                     </div>
@@ -524,41 +559,53 @@ export default function MultiStepForm() {
                                             </div>
                                         </div>
 
+                                        {/* Rights Information */}
                                         <div>
                                             <h3 className="font-semibold text-gray-900 mb-3">Rights Information</h3>
-                                            <div className="grid grid-cols-2 gap-4">
+                                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                                                 <div>
                                                     <p className="text-sm text-gray-600">Master Rights</p>
-                                                    <p className="font-semibold text-gray-900">${Number(form.watch('askingPrice') || 0).toLocaleString()} %</p>
+                                                    <p className="font-semibold text-gray-900">
+                                                        ${Number(form.watch('masterRights') || 0).toLocaleString()}%
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <p className="text-sm text-gray-600">Publishing Rights</p>
-                                                    <p className="font-semibold text-gray-900">${Number(form.watch('masterRights') || 0).toLocaleString()}
-                                                        %</p>
+                                                    <p className="font-semibold text-gray-900">
+                                                        ${Number(form.watch('publishingRights') || 0).toLocaleString()}%
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
 
+                                        {/* Listing Details */}
                                         <div>
                                             <h3 className="font-semibold text-gray-900 mb-3">Listing Details</h3>
-                                            <div className="grid grid-cols-3 gap-4">
+                                            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
                                                 <div>
                                                     <p className="text-sm text-gray-600">Asking Price</p>
-                                                    <p className="font-semibold text-gray-900">${form.watch('askingPrice')?.toLocaleString()}</p>
+                                                    <p className="font-semibold text-gray-900">
+                                                        ${form.watch('askingPrice')?.toLocaleString()}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <p className="text-sm text-gray-600">Investment Goal</p>
-                                                    <p className="font-semibold text-gray-900">${form.watch('investmentGoal')?.toLocaleString()}</p>
+                                                    <p className="font-semibold text-gray-900">
+                                                        ${form.watch('investmentGoal')?.toLocaleString()}
+                                                    </p>
                                                 </div>
                                                 <div>
                                                     <p className="text-sm text-gray-600">Listing Duration</p>
-                                                    <p className="font-semibold text-gray-900">${Number(form.watch('listingDuration') || 0).toLocaleString()} days</p>
+                                                    <p className="font-semibold text-gray-900">
+                                                        {Number(form.watch('listingDuration') || 0).toLocaleString()} days
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
                         )}
 
                         {/* Navigation Buttons */}
