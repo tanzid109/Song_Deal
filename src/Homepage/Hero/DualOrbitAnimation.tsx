@@ -40,7 +40,7 @@ export default function DualOrbitAnimation() {
             className="relative flex items-center justify-center md:w-full h-auto"
         >
             {/* Center Image */}
-            <div className="w-42 h-42 rounded-full overflow-hidden border-4 border-white shadow-md">
+            <div className="w-56 h-56 rounded-full overflow-hidden shadow-md">
                 <video
                     src="/animation/music.mp4"
                     autoPlay
@@ -53,9 +53,9 @@ export default function DualOrbitAnimation() {
 
 
             {/* Inner Orbit */}
-            <div className="absolute w-[280px] h-[280px] rounded-full border border-dashed border-gray-300/40 orbit-2">
+            <div className="absolute w-[380px] h-[380px] rounded-full border border-dashed border-gray-300/40 orbit-2">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                    <div className="w-[65px] h-[65px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+                    <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
                             src="/assets/image1.jpg"
                             alt="orbit-1a"
@@ -65,7 +65,7 @@ export default function DualOrbitAnimation() {
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-                    <div className="w-[65px] h-[65px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+                    <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
                             src="/assets/image2.jpg"
                             alt="orbit-1b"
@@ -77,9 +77,9 @@ export default function DualOrbitAnimation() {
             </div>
 
             {/* Outer Orbit */}
-            <div className="absolute w-[420px] h-[420px] rounded-full border border-dashed border-gray-300/40 orbit-1">
+            <div className="absolute w-[520px] h-[520px] rounded-full border border-dashed border-gray-300/40 orbit-1">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
-                    <div className="w-[80px] h-[80px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+                    <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
                             src="/assets/image3.jpg"
                             alt="orbit-2a"
@@ -89,7 +89,7 @@ export default function DualOrbitAnimation() {
                     </div>
                 </div>
                 <div className="absolute bottom-0 left-1/2 -translate-x-1/2">
-                    <div className="w-[80px] h-[80px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
+                    <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
                             src="/assets/image4.jpg"
                             alt="orbit-2b"
