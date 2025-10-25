@@ -299,7 +299,7 @@ export default function InvestorProfileForm() {
                             <RadioGroup
                                 defaultValue="$50k - $100k"
                                 onValueChange={(value) => setValue('investmentRange', value, { shouldValidate: true })}
-                                className="mt-3 space-y-3"
+                                className="mt-3  flex items-center"
                             >
                                 <div className="flex items-center space-x-2">
                                     <RadioGroupItem value="$1k - $10k" id="range1" />
@@ -326,7 +326,7 @@ export default function InvestorProfileForm() {
 
                     <Button
                         type="submit"
-                        className="w-full bg-purple-600 hover:bg-purple-700 text-white py-6 text-lg font-semibold"
+                        className="w-full"
                     >
                         Save Profile
                     </Button>

@@ -207,8 +207,8 @@ export default function ArtistProfileForm() {
                                                         type="button"
                                                         onClick={() => toggleGenre(genre)}
                                                         className={`px-3 py-1.5 rounded-lg text-sm font-medium transition ${formData.selectedGenres.includes(genre)
-                                                                ? 'bg-indigo-600 text-white'
-                                                                : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
+                                                            ? 'bg-indigo-600 text-white'
+                                                            : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
                                                             }`}
                                                     >
                                                         {genre}
@@ -279,12 +279,11 @@ export default function ArtistProfileForm() {
 
                                 {/* Save Button */}
                                 <div className="flex justify-end pt-6">
-                                    <button
+                                    <Button
                                         type="submit"
-                                        className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 transition shadow-lg"
                                     >
                                         Save and Continue
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         )}
@@ -389,19 +388,18 @@ export default function ArtistProfileForm() {
 
                                 {/* Navigation Buttons */}
                                 <div className="flex justify-between pt-6 border-t">
-                                    <button
+                                    <Button
                                         type="button"
                                         onClick={() => setCurrentStep(1)}
-                                        className="px-6 py-3 border border-gray-300 text-gray-700 font-semibold rounded-lg hover:bg-gray-50 transition"
+                                        variant="secondary"
                                     >
                                         Back
-                                    </button>
-                                    <button
+                                    </Button>
+                                    <Button
                                         type="submit"
-                                        className="px-8 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white font-semibold rounded-lg hover:from-indigo-700 hover:to-purple-700 transition shadow-lg"
                                     >
                                         Save Profile
-                                    </button>
+                                    </Button>
                                 </div>
                             </div>
                         )}
