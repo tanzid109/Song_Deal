@@ -1,58 +1,32 @@
-"use client";
 import React from "react";
-import { motion } from "framer-motion";
-
 export default function AboutSection() {
     return (
-        <section className="relative w-full overflow-hidden py-24 px-6 md:px-12 lg:px-24 text-white">
-            {/* Background gradient blob */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute -top-40 -left-32 w-[400px] h-[400px] bg-[#635BFF]/20 rounded-full blur-3xl animate-pulse" />
-                <div className="absolute bottom-0 right-0 w-[500px] h-[500px] bg-[#3D7DFF]/10 rounded-full blur-3xl" />
-            </div>
-
-            <div className="relative max-w-6xl mx-auto text-center space-y-10">
-                <motion.h2
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="text-4xl md:text-6xl font-bold text-gray-800"
-                >
-                    About <span className="text-4xl md:text-6xl font-bold text-[#635BFF]">SongDeal</span>
-                </motion.h2>
-
-                <motion.p
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed text-gray-500"
-                >
-                    Every song begins with <span className="text-[#635BFF] font-medium">inspiration</span> — a story, a sound, a spark.
-                    In today’s fast-changing music landscape, creators often struggle to turn that spark into
-                    opportunity. <span className="text-[#635BFF] font-semibold">SongDeal</span> was built to change that.
-                    We bridge creativity and commerce, helping artists, songwriters, and producers
-                    uncover the true value of their music.
-                </motion.p>
-
-                <motion.div
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.4, duration: 0.8 }}
-                    viewport={{ once: true }}
-                    className="max-w-3xl mx-auto text-lg md:text-xl leading-relaxed text-gray-500"
-                >
-                    Our platform blends <span className="text-[#635BFF] font-medium">AI-powered analytics</span>,
-                    smart publishing tools, and a global community that celebrates collaboration and fairness.
-                    For labels, publishers, and music professionals, we provide
-                    transparent insights and data-driven discovery—turning guesswork into growth.
-                    <br /><br />
-                    <span className="text-[#635BFF] font-semibold">
-                        Every song is more than a sound—it’s an asset.
-                    </span>{" "}
-                    And at SongDeal, we’re making sure every creator gets their fair share of its worth.
-                </motion.div>
+        <section className="w-full bg-background py-20 px-6 md:px-12 lg:px-24">
+            <div className="max-w-4xl mx-auto space-y-10 text-foreground">
+                <div className="space-y-4">
+                    <h2 className="text-3xl text-[#635BFF] md:text-5xl font-bold tracking-tight text-center">
+                        SongDeal
+                    </h2>
+                    <p className="text-lg text-gray-800 leading-relaxed">
+                        Every song begins with inspiration a story, a sound, a spark. Yet in today’s fast-changing music landscape,many creators still struggle to turn that inspiration into opportunity.<strong>SongDeal</strong> was created to bridge that gap.
+                        It’s a next-generation music-tech platform built to empower artists, songwriters, and music creators
+                        worldwide.
+                    </p>
+                    <p className="text-lg leading-relaxed text-gray-800">
+                        Our platform brings together music publishing, artist community, and AI innovation to help creators understand the true value of their songs, connect with opportunities, and secure fair, data-driven deals.Beyond empowering creators, <strong>SongDeal</strong> also supports labels, publishers, and music partners with clearer insights, smarter discovery, and transparent collaboration tools.
+                    </p>
+                </div>
+                <div className="space-y-4 border-l-4 border-primary pl-6">
+                    <h2 className="text-xl font-medium text-foreground italic bg-yellow-400 p-1 border-black border-b-4">
+                        “At SongDeal, we believe that every song is more than just a sound. It’s an asset.”
+                    </h2>
+                    <p className="text-lg text-gray-800">
+                        Every song deserves a chance to shine, and every creator deserves to win.
+                    </p>
+                    <p className="text-lg font-semibold text-primary">
+                        We’re shaping the future of music, one song deal at a time.
+                    </p>
+                </div>
             </div>
         </section>
     );

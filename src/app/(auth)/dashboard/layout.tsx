@@ -5,6 +5,7 @@ import {
     SidebarTrigger,
 } from "@/components/ui/sidebar"
 import { Toaster } from "@/components/ui/sonner"
+import Notification from "@/Shared/Notification"
 import Image from "next/image"
 import Link from "next/link"
 
@@ -18,16 +19,21 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                         <SidebarTrigger />
                         <h3 className="font-semibold text-2xl">Overview</h3>
                     </div>
-                    <div className="mr-10 my-1 h-[72px] w-[72px] rounded-full overflow-hidden">
-                        <Link href="/dashboard/settings/basic">
-                            <Image
-                                src="/assets/user1.jpg"
-                                width={72}
-                                height={72}
-                                alt="profile"
-                                className="object-cover w-full h-full"
-                            />
-                        </Link>
+                    <div className="flex items-center justify-between gap-4">
+                        <div>
+                            <Notification />
+                        </div>
+                        <div className="mr-10 my-1 h-[72px] w-[72px] rounded-full overflow-hidden">
+                            <Link href="/admin/settings/basic">
+                                <Image
+                                    src="/assets/user1.jpg"
+                                    width={72}
+                                    height={72}
+                                    alt="profile"
+                                    className="object-cover w-full h-full"
+                                />
+                            </Link>
+                        </div>
                     </div>
                 </header>
                 <div className="bg-[#F4FAFD] flex flex-1 flex-col gap-4 p-4 pt-0">
@@ -36,7 +42,7 @@ export default function Dashboard({ children }: { children: React.ReactNode }) {
                     }
                 </div>
             </SidebarInset>
-            <Toaster position="top-center"/>
+            <Toaster position="top-center" />
         </SidebarProvider>
     )
 }

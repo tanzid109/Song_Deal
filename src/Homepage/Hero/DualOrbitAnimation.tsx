@@ -53,7 +53,7 @@ export default function DualOrbitAnimation() {
 
 
             {/* Inner Orbit */}
-            <div className="absolute w-[380px] h-[380px] rounded-full border border-dashed border-gray-300/40 orbit-2">
+            <div className="absolute w-[380px] h-[380px] rounded-full border-2 border-dashed border-gray-300/40 orbit-2">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
@@ -77,7 +77,7 @@ export default function DualOrbitAnimation() {
             </div>
 
             {/* Outer Orbit */}
-            <div className="absolute w-[520px] h-[520px] rounded-full border border-dashed border-gray-300/40 orbit-1">
+            <div className="absolute w-[520px] h-[520px] rounded-full border-2 border-dashed border-gray-300/40 orbit-1">
                 <div className="absolute top-0 left-1/2 -translate-x-1/2">
                     <div className="w-[100px] h-[100px] rounded-full overflow-hidden border-4 border-white shadow-md bg-white">
                         <Image
