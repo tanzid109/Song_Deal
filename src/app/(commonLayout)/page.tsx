@@ -4,6 +4,7 @@ import { HeroSection } from "@/Homepage/Hero";
 import Revolution from "@/Shared/Revolution";
 import VisionSection from "@/Homepage/Vision";
 import Works from "@/Homepage/Works";
+import FAQ from "@/Homepage/FAQ/FAQ";
 
 export default function Home() {
   return (
@@ -15,6 +16,7 @@ export default function Home() {
         <FeaturedAfrica />
       </div>
       <Works />
+      <FAQ/>
       <Revolution />
     </>
   );
