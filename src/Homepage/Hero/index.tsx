@@ -6,6 +6,7 @@ import Link from "next/link";
 import { useState } from "react";
 import RotatingOrbit from "./DualOrbitAnimation";
 import PhoneAnimation from "./PhoneAnimation";
+import { BiLogIn } from "react-icons/bi";
 
 export function HeroSection() {
     const [isModalOpen, setIsModalOpen] = useState(false);
@@ -29,12 +30,12 @@ export function HeroSection() {
                     <div className="flex items-center justify-center md:justify-start gap-4">
                         <Link href="/marketplace">
                             <Button>
-                                Explore Marketplace
+                                Explore Marketplace 
                                 <ArrowRightIcon className="ml-2 h-4 w-4" />
                             </Button>
                         </Link>
                         <Button variant="secondary" onClick={() => setIsModalOpen(true)}>
-                            Sign up
+                            Sign up <BiLogIn className="size-5"/>
                         </Button>
                     </div>
                 </div>

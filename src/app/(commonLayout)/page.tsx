@@ -16,7 +16,7 @@ export default function Home() {
         <FeaturedAfrica />
       </div>
       <Works />
-      <FAQ/>
+      <FAQ />
       <Revolution />
     </>
   );

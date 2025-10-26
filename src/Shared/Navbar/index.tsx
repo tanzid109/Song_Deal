@@ -5,6 +5,7 @@ import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Menu } from "lucide-react";
+import { BiLogIn } from "react-icons/bi";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
     NavigationMenu,
@@ -62,7 +63,7 @@ export default function Navbar() {
                 <div className="hidden md:flex space-x-3">
                     <Link href={"/login"}>
                         <Button variant="secondary">
-                            Sign in
+                            Sign in <BiLogIn className="size-5"/>
                         </Button>
                     </Link>
                     <Button variant="default"
@@ -97,7 +98,7 @@ export default function Navbar() {
                                 <div className="flex flex-col gap-2.5 ">
                                     <Link href={"/login"}>
                                         <Button variant="secondary" size="sm" className="w-full font-semibold text-sm">
-                                            Sign in
+                                            Sign in <BiLogIn className="size-5" />
                                         </Button>
                                     </Link>
                                     <Link href="/register">

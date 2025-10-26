@@ -4,7 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { Facebook, Instagram } from "lucide-react";
+import { Facebook, Instagram, LinkedinIcon } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -34,15 +34,21 @@ export default function Footer() {
                     <div className="flex space-x-3">
                         <Link
                             href="#"
-                            className="bg-[#1B127D] p-2 rounded-full hover:bg-[#2A1FB3] transition"
+                            className="bg-[#efeff52c]  p-2 rounded-full hover:bg-[#2A1FB3] transition"
                         >
                             <Facebook className="h-5 w-5 text-white" />
                         </Link>
                         <Link
                             href="#"
-                            className="bg-[#1B127D] p-2 rounded-full hover:bg-[#2A1FB3] transition"
+                            className="bg-[#efeff52c] p-2 rounded-full hover:bg-[#2A1FB3] transition"
                         >
                             <Instagram className="h-5 w-5 text-white" />
+                        </Link>
+                        <Link
+                            href="#"
+                            className="bg-[#efeff52c] p-2 rounded-full hover:bg-[#2A1FB3] transition"
+                        >
+                            <LinkedinIcon className="h-5 w-5 text-white" />
                         </Link>
                     </div>
                 </div>

@@ -4,6 +4,8 @@ import RoleSelectionModal from "@/auth/register/RoleSelectionModal";
 import { Button } from "@/components/ui/button";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import { BiLogIn } from "react-icons/bi";
+
 
 export default function Revolution() {
     const [isModalOpen, setIsModalOpen] = useState(false)
@@ -41,11 +43,11 @@ export default function Revolution() {
                 >
                     <Button variant="default" className="w-full md:w-auto"
                         onClick={() => setIsModalOpen(true)}>
-                        Sign up as Artist
+                        Sign up as Artist <BiLogIn className="size-5" />
                     </Button>
                     <Button variant="secondary" className="w-full md:w-auto"
                         onClick={() => setIsModalOpen(true)}>
-                        Sign up as Investor
+                        Sign up as Investor <BiLogIn className="size-5" />
                     </Button>
                 </motion.div>
             </div>
