@@ -115,15 +115,15 @@ const FAQ = () => {
     ];
 
     return (
-        <section>
-            <div className=" container max-w-5xl px-6 mx-auto">
-                <h1 className="text-5xl font-bold text-center text-[#635BFF] tracking-widest mb-10 italic">
+        <section className="font-['Times_New_Roman']">
+            <div className="container max-w-5xl px-6 mx-auto">
+                <h1 className="text-5xl font-bold text-center text-gray-800 tracking-wide mb-10 italic">
                     FAQ
                 </h1>
 
                 {sections.map((section, sectionIndex) => (
                     <div key={sectionIndex} className="mb-10">
-                        <h2 className="text-2xl font-bold text-gray-800  mb-6">
+                        <h2 className="text-2xl font-bold text-gray-800 mb-6">
                             {section.title}
                         </h2>
 
@@ -133,19 +133,19 @@ const FAQ = () => {
                                 return (
                                     <div
                                         key={index}
-                                        className="border-2 bg-white/70 border-gray-100  rounded-lg transition"
+                                        className="border-2 bg-white/70 border-gray-100 rounded-lg transition"
                                     >
                                         <button
                                             onClick={() => toggle(sectionIndex * 100 + index)}
                                             className="flex items-center justify-between w-full p-6"
                                         >
-                                            <h3 className=" font-medium tracking-wide text-gray-800 text-[18px] text-left">
+                                            <h3 className="font-medium tracking-wide text-gray-800 text-[18px] text-left">
                                                 {item.q}
                                             </h3>
 
                                             <span
                                                 className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${isOpen
-                                                        ? "bg-gray-200 text-gray-600"
+                                                    ? "bg-gray-200 text-gray-600"
                                                     : "bg-[#635BFF] text-white"
                                                     }`}
                                             >
@@ -158,7 +158,7 @@ const FAQ = () => {
                                         </button>
 
                                         {isOpen && (
-                                            <div className="border-t border-gray-200 ">
+                                            <div className="border-t border-gray-200">
                                                 <p className="p-6 text-black rounded-b-lg text-[17px] leading-relaxed">
                                                     {item.a}
                                                 </p>
