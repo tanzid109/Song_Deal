@@ -66,7 +66,7 @@ export default function VisionSection() {
                     <motion.p
                         className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed"
                     >
-                        We &apos; re revolutionizing music financing by directly connecting artists with investors,fostering a more transparent, equitable, and innovative industry for all.
+                        We&apos;re revolutionizing music financing by directly connecting artists with investors,fostering a more transparent, equitable, and innovative industry for all.
                     </motion.p>
                 </motion.div>
 
