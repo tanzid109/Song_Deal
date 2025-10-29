@@ -63,9 +63,6 @@ export default function RegisterForm() {
             };
 
             console.log("Registration Data:", registrationData);
-
-            // Here you would call your API to save to database
-            // Example:
             // const response = await fetch('/api/register', {
             //     method: 'POST',
             //     headers: { 'Content-Type': 'application/json' },

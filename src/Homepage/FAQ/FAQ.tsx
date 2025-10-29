@@ -19,11 +19,25 @@ const FAQ = () => {
                 },
                 {
                     q: "Who Is It For?",
-                    a: "Rights holders (artists, labels, publishers), investors (institutional and retail), royalty processors and distributors, and financial and cultural institutions.",
+                    a: (
+                        <ul className="list-disc pl-6 space-y-1">
+                            <li>Rights holders (artists, labels, publishers)</li>
+                            <li>Investors (institutional and retail)</li>
+                            <li>Royalty processors and distributors</li>
+                            <li>Financial and cultural institutions</li>
+                        </ul>
+                    ),
                 },
                 {
                     q: "What Does SongDeal Offer?",
-                    a: "Royalty analytics and catalog valuation, deal history, performance metrics, investment tools for music assets, and regional insights (global with expanding modules).",
+                    a: (
+                        <ul className="list-disc pl-6 space-y-1">
+                            <li>Royalty analytics and catalog valuation</li>
+                            <li>Deal history and performance metrics</li>
+                            <li>Investment tools for music assets</li>
+                            <li>Regional insights (Global, with expanding modules)</li>
+                        </ul>
+                    ),
                 },
             ],
         },
@@ -117,13 +131,13 @@ const FAQ = () => {
     return (
         <section className="font-['Times_New_Roman']">
             <div className="container max-w-5xl px-6 mx-auto">
-                <h1 className="text-5xl font-bold text-center text-gray-800 tracking-wide mb-10 italic">
+                <h1 className="text-2xl font-bold text-center text-black tracking-wide mb-10">
                     FAQ
                 </h1>
 
                 {sections.map((section, sectionIndex) => (
                     <div key={sectionIndex} className="mb-10">
-                        <h2 className="text-2xl font-bold text-gray-800 mb-6">
+                        <h2 className="text-xl tracking-wide font-bold text-gray-800 mb-6">
                             {section.title}
                         </h2>
 
@@ -139,29 +153,29 @@ const FAQ = () => {
                                             onClick={() => toggle(sectionIndex * 100 + index)}
                                             className="flex items-center justify-between w-full p-6"
                                         >
-                                            <h3 className="font-medium tracking-wide text-gray-800 text-[18px] text-left">
+                                            <h3 className="font-medium tracking-wide text-gray-800 text-lg text-left">
                                                 {item.q}
                                             </h3>
 
                                             <span
-                                                className={`flex items-center justify-center w-8 h-8 rounded-full transition-colors ${isOpen
-                                                    ? "bg-gray-200 text-gray-600"
+                                                className={`flex items-center justify-center w-7 h-7 rounded-full transition-colors ${isOpen
+                                                    ? "bg-gray-300 text-gray-800"
                                                     : "bg-[#635BFF] text-white"
                                                     }`}
                                             >
                                                 {isOpen ? (
-                                                    <Minus className="w-5 h-5" />
+                                                    <Minus className="w-4 h-4" />
                                                 ) : (
-                                                    <Plus className="w-5 h-5" />
+                                                    <Plus className="w-4 h-4" />
                                                 )}
                                             </span>
                                         </button>
 
                                         {isOpen && (
                                             <div className="border-t border-gray-200">
-                                                <p className="p-6 text-black rounded-b-lg text-[17px] leading-relaxed">
+                                                <div className="p-6 text-black rounded-b-lg text-[16px] leading-relaxed tracking-wide">
                                                     {item.a}
-                                                </p>
+                                                </div>
                                             </div>
                                         )}
                                     </div>
