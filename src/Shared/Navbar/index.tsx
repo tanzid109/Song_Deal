@@ -4,7 +4,7 @@ import Link from "next/link";
 import Image from "next/image";
 import { usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
-import { Menu } from "lucide-react";
+import {  Menu, MousePointer2 } from "lucide-react";
 import { BiLogIn } from "react-icons/bi";
 import { Sheet, SheetContent, SheetDescription, SheetTitle, SheetTrigger } from "@/components/ui/sheet";
 import {
@@ -68,7 +68,7 @@ export default function Navbar() {
                     </Link>
                     <Button variant="default"
                         onClick={() => setIsModalOpen(true)}>
-                        Get started
+                        Get started <MousePointer2 className="rotate-90 h-4 w-4" />
                     </Button>
 
                 </div>

@@ -3,6 +3,7 @@
 import { Button } from "@/components/ui/button";
 import Image from "next/image";
 import { motion } from "framer-motion";
+import { MousePointer2 } from "lucide-react";
 
 const Analytics = () => {
     return (
@@ -46,7 +47,7 @@ const Analytics = () => {
                     </p>
 
                     <div>
-                        <Button className="mt-4">Explore Analytics</Button>
+                        <Button className="mt-4">Explore Analytics <MousePointer2 className="rotate-90 h-4 w-4" /></Button>
                     </div>
                 </div>
             </div>

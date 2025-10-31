@@ -1,9 +1,12 @@
 "use client";
 import React, { useState } from "react";
-import { Plus, Minus } from "lucide-react";
+import { Plus, Minus, ArrowRightIcon, ArrowUpIcon } from "lucide-react";
+import { Button } from "@/components/ui/button";
+import Link from "next/link";
 
 const FAQ = () => {
     const [openIndex, setOpenIndex] = useState<number | null>(null);
+    const [showAll, setShowAll] = useState(false);
 
     const toggle = (index: number) => {
         setOpenIndex(openIndex === index ? null : index);
@@ -122,11 +125,24 @@ const FAQ = () => {
             items: [
                 {
                     q: "How Do I Get Help?",
-                    a: "Contact the Help Center in-app or email support@songdeal.com. Most inquiries are answered within 24 hours.",
+                    a: (
+                        <p>
+                            Contact the Help Center in-app or email{" "}
+                            <Link
+                                href="mailto:support@songdeal.com?subject=Support%20Request"
+                                className="text-[#635BFF] underline hover:text-[#5145CD] font-semibold"
+                            >
+                                support@songdeal.com
+                            </Link>
+                            . Most inquiries are answered within 24 hours.
+                        </p>
+                    ),
                 },
             ],
-        },
+        }
     ];
+
+    const visibleSections = showAll ? sections : sections.slice(0, 2);
 
     return (
         <section className="font-['Times_New_Roman']">
@@ -135,7 +151,7 @@ const FAQ = () => {
                     FAQ
                 </h1>
 
-                {sections.map((section, sectionIndex) => (
+                {visibleSections.map((section, sectionIndex) => (
                     <div key={sectionIndex} className="mb-10">
                         <h2 className="text-xl tracking-wide font-bold text-gray-800 mb-6">
                             {section.title}
@@ -159,8 +175,8 @@ const FAQ = () => {
 
                                             <span
                                                 className={`flex items-center justify-center w-7 h-7 rounded-full transition-colors ${isOpen
-                                                    ? "bg-gray-300 text-gray-800"
-                                                    : "bg-[#635BFF] text-white"
+                                                        ? "bg-gray-300 text-gray-800"
+                                                        : "bg-[#635BFF] text-white"
                                                     }`}
                                             >
                                                 {isOpen ? (
@@ -184,6 +200,24 @@ const FAQ = () => {
                         </div>
                     </div>
                 ))}
+
+                <div className="text-center my-8">
+                    <Button
+                        variant="secondary"
+                        onClick={() => setShowAll(!showAll)}
+                        className="gap-2"
+                    >
+                        {showAll ? (
+                            <>
+                                Show Less <ArrowUpIcon className="h-4 w-4" />
+                            </>
+                        ) : (
+                            <>
+                                View All <ArrowRightIcon className="h-4 w-4" />
+                            </>
+                        )}
+                    </Button>
+                </div>
             </div>
         </section>
     );
